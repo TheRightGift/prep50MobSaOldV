@@ -26,15 +26,1863 @@
     <!-- ionic/angularjs js -->
     <script src="lib/ionic/js/ionic.bundle.js"></script>
 
+    <!--<script src="lib/ngCordova/dist/ng-cordova-mocks.min.js"></script>-->
+    <script src="lib/ngCordova/dist/ng-cordova.min.js"></script>
     <!-- cordova script (this will be a 404 during development) -->
     <script src="cordova.js"></script>
-
+    <!--JQuery-->
+    
     <!-- your app's js -->
+    <script src="js/jquery-3.0.0.min.js"></script>
     <script src="js/app.js"></script>
-    <script src="js/controllers.js"></script>
+
   </head>
 
   <body ng-app="starter">
+    
+
     <ion-nav-view></ion-nav-view>
+
+    
+    <!--HOME-->
+    <script id="templates/home.html" type="text/ng-template">
+      <ion-view class="custom">
+        
+        <ion-content padding="'true'" scroll="false">
+          <h1>PREP50</h1>
+          <p>you study, we reward</p>
+          <form class="list">
+            <ion-list>
+                
+                <label class="item item-input">
+                    <span class="input-label">Login</span>
+                    <input type="password" placeholder="PREP50 Reg Number" ng-model="regNum">
+                </label>
+                
+            </ion-list>
+            
+            <div class="button-bar">
+            <!--data object is passed to the signup()-->
+            <button ng-click="login(regNum)" class="button button-block loginBtn">Login</button>
+            <a class="button button-stable  button-block ion-person" ui-sref="signUp"> SIGN UP</a>
+            </div>
+        </form>
+
+        </ion-content>
+      </ion-view>
+    </script>
+    <!--HOME END-->
+    <!--SIGNUP-->
+    <script id="templates/signUp.html" type="text/ng-template">
+      <ion-view class="signUp" view-title="{{ title }}">
+        
+        <ion-content class="overflow-scroll" overflow-scroll="true" padding="'true'" scroll="false">
+          <h2>PREP50 Sign Up Form</h2>
+          <form name="register" novalidate>
+            <div class="list">
+              <label class="item item-input">
+                <span class="input-label">Firstname</span>
+                <input type="text" placeholder="" name="fName" ng-model="account.fName" required>
+              </label>
+              <label class="item item-input">
+                <span class="input-label">Othername</span>
+                <input type="text" placeholder="" name="oName" ng-model="account.oName">
+              </label>
+              <label class="item item-input">
+                <span class="input-label">Lastname</span>
+                <input type="text" placeholder="" name="lName" ng-model="account.lName" required>
+              </label>
+              <label class="item item-input">
+                <span class="input-label">Email</span>
+                <input type="email" placeholder="" name="email" ng-model="account.email" required>
+              </label>
+              <label class="item item-input">
+                <span class="input-label">Phone Num</span>
+                <input type="text" placeholder="" name="phone" ng-model="account.phone" ng-minlength="11" ng-maxlength="11" required>
+              </label>
+
+              <label class = "item item-input item-select">
+                <div class = "input-label">Select Sex</div>    
+                <select name="sex" ng-model="account.sex" required class="sex">
+                   <option ng-value=""></option>
+                   <option ng-value="M">Male</option>
+                   <option ng-value="F">Female</option>
+                </select>
+              </label>
+              <label class = "item item-input item-select">
+                <div class = "input-label">State of Origin</div>    
+                <select name="state" ng-model="account.state" required>
+                   <option ng-value=""></option>
+                   <option ng-repeat="state in states"  ng-value="{{state.stateId}}">{{state.state}}</option>
+                </select>
+              </label>
+              <label class = "item item-input item-select">
+                <div class = "input-label">University</div>    
+                <select name="uni" ng-model="account.uni" required class="uni">
+                   <option ng-value=""></option>
+                   <option ng-repeat="univ in univs"  ng-value="{{univ.univId}}">{{univ.univ}}</option>
+                </select>
+              </label>
+              <label class = "item item-input item-select">
+                <div class = "input-label">Polytechnic</div>    
+                <select name="poly" ng-model="account.poly" required>
+                   <option ng-value=""></option>
+                   <option ng-repeat="poly in polys"  ng-value="{{poly.polyId}}">{{poly.poly}}</option>
+                </select>
+              </label>
+              <label class = "item item-input item-select">
+                <div class = "input-label">Target Course</div>    
+                <select name="dept" ng-model="account.dept">
+                   <option ng-value="" id="firstDept">Select University to load courses</option>
+                   <option ng-repeat="dept in depts"  ng-value="{{dept.deptId}}">{{dept.dept}}</option>
+                </select>
+              </label>
+              <label class="item item-input">
+                <span class="input-label">First Subject</span>
+                <input type="text" disabled="true" value="Use of English">
+              </label>
+              <label class = "item item-input item-select">
+                <div class = "input-label">Second Subject</div>    
+                <select name="sSubj" ng-model="account.sSubj" class="sSubj" required>
+                   <option ng-value=""></option>
+                   <option ng-repeat="subj in subjs"  ng-value="{{subj.subjId}}">{{subj.subj}}</option>
+                </select>
+              </label>
+              <label class = "item item-input item-select">
+                <div class = "input-label">Third Subject</div>    
+                <select name="tSubj" ng-model="account.tSubj" class="tSubj" required>
+                   <option ng-value=""></option>
+                   <option ng-repeat="subj in subjs"  ng-value="{{subj.subjId}}">{{subj.subj}}</option>
+                </select>
+              </label>
+              <label class = "item item-input item-select">
+                <div class = "input-label">Fourth Subject</div>    
+                <select name="ftSubj" ng-model="account.ftSubj" class="ftSubj" required>
+                   <option ng-value=""></option>
+                   <option ng-repeat="subj in subjs"  ng-value="{{subj.subjId}}">{{subj.subj}}</option>
+                </select>
+              </label>
+            </div>
+          </form>
+
+          <!--Validation-->
+          <div class="padding">
+            <p ng-show="register.fName.$error.required">* Firstname is required</p>
+            <p ng-show="register.lName.$error.required">* Lastname is required</p>
+            <p ng-show="register.email.$error.required && register.email.$invalid">* Email is required</p>
+            <p ng-show="register.phone.$error.required && register.phone.$invalid">* Phone number is required</p>
+            <p ng-show="register.sex.$error.required">* Sex is required</p>
+          </div>
+          <!--End of Validation-->
+
+          <button class="button button-full loginBtn" ng-disabled="register.$invalid" ng-click="signUp(account)">Submit</button>
+          
+        </ion-content>
+      </ion-view>
+    </script>
+    <!--SIGNUP End-->
+
+    <!--A/C with Same Detail-->
+    <script id="templates/acSameDet.html" type="text/ng-template">
+      <div class = "bar bar-header bar-assertive">
+        <h1 class = "title">Account Recovery</h1>
+      </div>
+
+      <ion-view>     
+          <ion-content padding="true" class="has-header">
+              <h4>An account with same details exists.</h4>
+              <p>Please enter your phone number to recover your account.</p>
+              <p>If this problem persists contact PREP50Tech; 08138184403.</p>
+              <form name="accountRecovery" novalidate>
+                <div class="list">
+                  <label class="item item-input">
+                    <span class="input-label">Phone Num</span>
+                    <input type="text" placeholder="" name="phone" ng-model="account.phone" ng-minlength="11" ng-maxlength="11" required>
+                  </label>
+                </div>
+              </form>
+    
+              <!--Validation-->
+              <div class="padding">
+                <p ng-show="accountRecovery.phone.$error.required && accountRecovery.phone.$invalid">* Phone number is required</p>
+              </div>
+              <!--End of Validation-->
+    
+              <button class="button button-full loginBtn" ng-disabled="accountRecovery.$invalid" ng-click="acRecov(account)">Recover</button>   
+          </ion-content>        
+      </ion-view>
+    </script>
+    <!--A/C with Same Detail Ends-->
+
+  <!--DASHBOARD-->
+  <script id="templates/dashBoard.html" type="text/ng-template">
+  <div class = "bar bar-header bar-assertive">
+    <h1 class = "title">Welcome</h1>
+  </div>
+  <ion-view class="signUp">
+      <ion-tabs class="tabs-icon-top tabs-assertive">
+        <ion-tab title="Home" icon="icon ion-home ion-ios7-filing">
+          <!-- Dashboard content -->
+          <ion-nav-view>
+            <div class="row dashRow">
+              <div class="col col-50 dashThumb" ui-sref="dashStudy">
+                  <img ng-src="img/study.png">
+                  <div>Study</div>
+              </div>
+              <div class="col col-50 dashThumb" ui-sref="dashQa">
+                <img ng-src="img/QA.png">
+                <div>Past Questions</div>
+              </div>
+            </div>
+            <div class="row dashQuizLink">
+              <div class="col col-100 dashThumb" ng-click="toWeeklyQuiz()">
+                    <div>Weekly Quiz</div>
+              </div>
+            </div>
+          </ion-nav-view>          
+         </ion-tab>
+         
+         <ion-tab title="Settings" icon="icon ion-gear-b ion-ios7-gear">
+          <!-- Setting content -->
+          <ion-nav-view>
+            <ul class="list">
+              <li class="item item-divider">
+                  Personal
+              </li>
+              <li class="item item-icon-left">                
+                <i class="icon ion-lock-combination"></i>
+                PREP50 RegNum
+                <span class="badge badge-calm">{{reg}}</span>
+              </li>
+
+              <li class="item item-divider">
+                Performance
+              </li>
+              <li class="item item-icon-left">
+                <i class="icon ion-cash"></i>
+                Total Coins Accrued (TCA)
+                <span class="badge badge-assertive">{{tca}}</span>
+              </li>
+              <li class="item item-icon-left">
+                <i class="icon ion-cash"></i>
+                total Current Coin (TCC)
+                <span class="badge badge-assertive">{{tcc}}</span>
+              </li>  
+               
+
+              <li class="item item-divider">
+                PREP50 Support
+              </li>     
+              <li class="item item-icon-left">                
+                <i class="icon ion-ios-cloud-download"></i>
+                New Study Materials 
+              </li>
+              <!--<li class="item item-icon-left">                
+                <i class="icon ion-ios-cart"></i>
+                PREP50 Shop 
+              </li>-->
+              <li class="item item-icon-left" ui-sref="pay">                
+                <i class="icon ion-cash"></i>
+                Pay for PREP50 
+              </li>
+              
+              <li class="item item-text-wrap item-assertive">
+              For technical Issues, academic errors or inquiry contact PREP50 on 08138184403 (Call, SMS, Whatsapp)
+              </li>
+            </ul>
+          </ion-nav-view>
+         </ion-tab>         
+      </ion-tabs>         
+  </ion-view>
+</script>
+<!--DASHBOARD End-->
+<!--WEEKLY QUIZ-->
+<script id="templates/weeklyQuiz.html" type="text/ng-template">
+  <div class = "bar bar-header bar-assertive">
+      <button class = "button icon ion-chevron-left" ng-click="myGoBack()"></button>
+      <h1 class = "title">Weekly Quiz</h1>
+      <button class = "button icon ion-home" ng-click="goToDash()"></button>
+  </div>
+
+  <ion-view class="signUp">
+    
+    <ion-content class="has-header overflow-scroll" overflow-scroll="true" scroll="false" padding="true">
+      <ul class="list">
+          <li class="item item-icon-right assertive" ng-repeat="wk in weeks"  ui-sref="weekQuiz({day: '{{wk.day}}', week: '{{wk.week}}'})">
+             Week {{wk.week}} Quiz
+             <i class="icon ion-chevron-right" style="color: #444;"></i>
+          </li>              
+      </ul>
+    </ion-content>
+  </ion-view>
+</script>
+<!--WEEKLY QUIZ END-->
+<!--WEEK QUIZ-->
+<script id="templates/weekQuiz.html" type="text/ng-template">
+  <div class = "bar bar-header bar-assertive">
+      <button class = "button icon ion-chevron-left" ng-click="myGoBack()"></button>
+      <h1 class = "title">WEEK {{week}} QUIZ</h1>
+      <button class = "button icon ion-home" ng-click="goToDash()"></button>
+  </div>
+  
+  <div class = "bar bar-subheader">
+    <button ng-disabled="prvSubjDsb" class="button button-dark pull-left" ng-click="prevSub()">
+      {{prvSubj}}
+    </button>
+    <button id="submitBtn" class="button button-positive" ng-click="submit()">
+      Submit
+    </button>
+    <button ng-disabled="nxtSubjDsb" class="button button-dark pull-right" ng-click="nextSub()">
+        {{nxtSubj}}
+    </button>
+  </div>
+  
+
+  <ion-view class="signUp">        
+    <ion-content class="has-header has-subheader overflow-scroll" overflow-scroll="true" scroll="false" padding="true">    
+      <div id="1" class="subjQ activeSubj">     
+        <h2>{{subj1T}}</h2>
+        <div  class = "card list questions" id="question_{{ques.quesNum}}" ng-repeat="ques in subj1Ques" ng-class="{'activ8d': subj1Index  === $index}">
+          <div class = "item item-divider">
+              Question {{ques.quesNum}}
+              <!--<span class="wrong" ng-class="{'right': ques.ans === ans.$index}" ng-show="subj1Tf">
+                  {{ques.ans === ans.$index ? 'Correct': 'Incorrect (Answer: '+ques.ans+')'}}
+              </span>-->
+          </div>
+          
+          <div class = "item item-text-wrap">
+              <span ng-if="ques.passage">
+                <p class="passage" style="background-color: #E5E7E9; padding: 3px;">
+                  <span ng-bind-html="ques.passage"></span>
+                </p>
+              </span>
+              <span ng-if="ques.fileName">
+                <img ng-src="img/{{ques.fileName}}" width="100%">
+              </span>
+              <p class="ques" style="font-weight: bold;">
+                <span ng-bind-html="ques.ques"></span>
+              </p>
+              <form style="top: 1vh">                      
+              
+                <p><label>
+                    <input ng-disabled="subj1Dsb" type="radio" ng-model="ans.$index" value="A" ng-change="userAns(1, ques.ans, ans.$index, ques.quesNum)"> 
+                    <b>A.</b> 
+                    <span ng-if="ques.optionA.slice(-4) == '.png' || ques.optionA.slice(-4) == '.jpg'">
+                      <span><img ng-src="img/{{ques.optionA}}" width="100%"></span>
+                    </span>
+                    <span ng-if="ques.optionA.slice(-4) != '.png' && ques.optionA.slice(-4) != '.jpg'">
+                      <span ng-bind-html="ques.optionA"></span>
+                    </span>
+                    
+                </label></p>
+                <p><label>
+                    <input ng-disabled="subj1Dsb" type="radio" ng-model="ans.$index" value="B" ng-change="userAns(1, ques.ans, ans.$index, ques.quesNum)"> 
+                    <b>B.</b> 
+                    <span ng-if="ques.optionB.slice(-4) == '.png' || ques.optionB.slice(-4) == '.jpg'">
+                      <span><img ng-src="img/{{ques.optionB}}" width="100%"></span>
+                    </span>
+                    <span ng-if="ques.optionB.slice(-4) != '.png' && ques.optionB.slice(-4) != '.jpg'">
+                      <span ng-bind-html="ques.optionB"></span>
+                    </span> 
+                    
+                </label></p>
+                <p><label>
+                    <input ng-disabled="subj1Dsb" type="radio" ng-model="ans.$index" value="C" ng-change="userAns(1, ques.ans, ans.$index, ques.quesNum)"> 
+                    <b>C.</b> 
+                    <span ng-if="ques.optionC.slice(-4) == '.png' || ques.optionC.slice(-4) == '.jpg'">
+                      <span><img ng-src="img/{{ques.optionC}}" width="100%"></span>
+                    </span>
+                    <span ng-if="ques.optionC.slice(-4) != '.png' && ques.optionC.slice(-4) != '.jpg'">
+                      <span ng-bind-html="ques.optionC"></span>
+                    </span>  
+                    
+                </label></p>
+                <p><label>
+                    <input ng-disabled="subj1Dsb" type="radio" ng-model="ans.$index" value="D" ng-change="userAns(1, ques.ans, ans.$index, ques.quesNum)"> 
+                    <b>D.</b> 
+                    <span ng-if="ques.optionD.slice(-4) == '.png' || ques.optionD.slice(-4) == '.jpg'">
+                      <span><img ng-src="img/{{ques.optionD}}" width="100%"></span>
+                    </span>
+                    <span ng-if="ques.optionD.slice(-4) != '.png' && ques.optionD.slice(-4) != '.jpg'">
+                      <span ng-bind-html="ques.optionD"></span>
+                    </span>
+                </label></p>
+                  <input type="radio" checked="checked" value="5" style="display:none" id="radio1_{{ques.quesNum}}" ng-model="ans.$index">
+                  <input type="hidden" value="{{ques.ans}}" name="quesEncrypt_{{ques.quesNum}}">
+                </form>               
+              
+          </div>
+          
+          <div class = "item item-divider">
+              <button  class="button button-positive" style="float: left;" ng-click="goToPrev(1)"> Prev </button>
+              <button class="button button-positive" style="float: right;" ng-click="goToNext(1)"> Next </button>
+          </div>
+        </div>
+
+        <div class="centre">
+            <button ng-repeat="n in subj1Buttons" ng-click="goToInd(1, n.number)" class="button button-small" id="indi{{n.number}}" style="float: left; margin-right: 2px; margin-bottom: 2px;" ng-class="(subj1Index  === $index? 'button-positive': '')+ ' '+(subj1UserAnswer[$index].ans === 'Unattempted'? '': 'green')">{{n.number}}</button>
+        </div>
+        
+      </div>
+      <div id="2" class="subjQ">
+        <h2>{{subj2T}}</h2>
+        <div  class = "card list questions" id="question_{{ques.quesNum}}" ng-repeat="ques in subj2Ques" ng-class="{'activ8d': subj2Index  === $index}">
+            <div class = "item item-divider">
+                Question {{ques.quesNum}}
+                <!--<span class="wrong" ng-class="{'right': ques.ans === ans.$index}" ng-show="subj2Tf">
+                    {{ques.ans === ans.$index ? 'Correct': 'Incorrect (Answer: '+ques.ans+')'}}
+                </span>-->
+            </div>
+            
+            <div class = "item item-text-wrap">
+                <span ng-if="ques.passage">
+                  <p class="passage" style="background-color: #E5E7E9; padding: 3px;">
+                    <span ng-bind-html="ques.passage"></span>
+                  </p>
+                </span>
+                <span ng-if="ques.fileName">
+                  <img ng-src="img/{{ques.fileName}}" width="100%">
+                </span>
+                <p class="ques" style="font-weight: bold;">
+                  <span ng-bind-html="ques.ques"></span>
+                </p>
+                <form style="top: 1vh">                      
+                
+                  <p><label>
+                      <input ng-disabled="subj1Dsb" type="radio" ng-model="ans.$index" value="A" ng-change="userAns(2, ques.ans, ans.$index, ques.quesNum)"> 
+                      <b>A.</b> 
+                      <span ng-if="ques.optionA.slice(-4) == '.png' || ques.optionA.slice(-4) == '.jpg'">
+                        <span><img ng-src="img/{{ques.optionA}}" width="100%"></span>
+                      </span>
+                      <span ng-if="ques.optionA.slice(-4) != '.png' && ques.optionA.slice(-4) != '.jpg'">
+                        <span ng-bind-html="ques.optionA"></span></p>
+                      </span>
+                      
+                  </label></p>
+                  <p><label>
+                      <input ng-disabled="subj1Dsb" type="radio" ng-model="ans.$index" value="B" ng-change="userAns(2, ques.ans, ans.$index, ques.quesNum)"> 
+                      <b>B.</b> 
+                      <span ng-if="ques.optionB.slice(-4) == '.png' || ques.optionB.slice(-4) == '.jpg'">
+                        <span><img ng-src="img/{{ques.optionB}}" width="100%"></span>
+                      </span>
+                      <span ng-if="ques.optionB.slice(-4) != '.png' && ques.optionB.slice(-4) != '.jpg'">
+                        <span ng-bind-html="ques.optionB"></span>
+                      </span> 
+                      
+                  </label></p>
+                  <p><label>
+                      <input ng-disabled="subj1Dsb" type="radio" ng-model="ans.$index" value="C" ng-change="userAns(2, ques.ans, ans.$index, ques.quesNum)"> 
+                      <b>C.</b> 
+                      <span ng-if="ques.optionC.slice(-4) == '.png' || ques.optionC.slice(-4) == '.jpg'">
+                        <span><img ng-src="img/{{ques.optionC}}" width="100%"></span>
+                      </span>
+                      <span ng-if="ques.optionC.slice(-4) != '.png' && ques.optionC.slice(-4) != '.jpg'">
+                        <span ng-bind-html="ques.optionC"></span>
+                      </span>  
+                      
+                  </label></p>
+                  <p><label>
+                      <input ng-disabled="subj1Dsb" type="radio" ng-model="ans.$index" value="D" ng-change="userAns(2, ques.ans, ans.$index, ques.quesNum)"> 
+                      <b>D.</b> 
+                      <span ng-if="ques.optionD.slice(-4) == '.png' || ques.optionD.slice(-4) == '.jpg'">
+                        <span><img ng-src="img/{{ques.optionD}}" width="100%"></span>
+                      </span>
+                      <span ng-if="ques.optionD.slice(-4) != '.png' && ques.optionD.slice(-4) != '.jpg'">
+                        <span ng-bind-html="ques.optionD"></span>
+                      </span>
+                      
+                  </label></p>
+                    <input type="radio" checked="checked" value="5" style="display:none" id="radio2_{{ques.quesNum}}" ng-model="ans.$index">
+                    <input type="hidden" value="{{ques.ans}}" name="quesEncrypt_{{ques.quesNum}}">
+                  </form>               
+                
+            </div>
+            
+            <div class = "item item-divider">
+                <button  class="button button-positive" style="float: left;" ng-click="goToPrev(2)"> Prev </button>
+                <button class="button button-positive" style="float: right;" ng-click="goToNext(2)"> Next </button>
+            </div>
+          </div>
+
+          <div ng-repeat="n in subj2Buttons" class="centre">
+              <button ng-click="goToInd(2, n.number)" class="button button-small" id="indi{{n.number}}" style="float: left; margin-right: 2px; margin-bottom: 2px;" ng-class="(subj2Index  === $index? 'button-positive': '')+ ' '+(subj2UserAnswer[$index].ans === 'Unattempted'? '': 'green')">{{n.number}}</button>
+          </div>
+      </div>
+      <div id="3" class="subjQ">
+          <h2>{{subj3T}}</h2>
+          <div  class = "card list questions" id="question_{{ques.quesNum}}" ng-repeat="ques in subj3Ques" ng-class="{'activ8d': subj3Index  === $index}">
+            <div class = "item item-divider">
+                Question {{ques.quesNum}}
+                <!--<span class="wrong" ng-class="{'right': ques.ans === ans.$index}" ng-show="subj3Tf">
+                    {{ques.ans === ans.$index ? 'Correct': 'Incorrect (Answer: '+ques.ans+')'}}
+                </span>-->
+            </div>
+            
+            <div class = "item item-text-wrap">
+                <span ng-if="ques.passage">
+                  <p class="passage" style="background-color: #E5E7E9; padding: 3px;">
+                    <span ng-bind-html="ques.passage"></span>
+                  </p>
+                </span>
+                <span ng-if="ques.fileName">
+                  <img ng-src="img/{{ques.fileName}}" width="100%">
+                </span>
+                <p class="ques" style="font-weight: bold;">
+                  <span ng-bind-html="ques.ques"></span>
+                </p>
+                <form style="top: 1vh">                      
+                
+                  <p><label>
+                      <input ng-disabled="subj1Dsb" type="radio" ng-model="ans.$index" value="A" ng-change="userAns(3, ques.ans, ans.$index, ques.quesNum)"> 
+                      <b>A.</b> 
+                      <span ng-if="ques.optionA.slice(-4) == '.png' || ques.optionA.slice(-4) == '.jpg'">
+                        <span><img ng-src="img/{{ques.optionA}}" width="100%"></span>
+                      </span>
+                      <span ng-if="ques.optionA.slice(-4) != '.png' && ques.optionA.slice(-4) != '.jpg'">
+                        <span ng-bind-html="ques.optionA"></span></p>
+                      </span>
+                      
+                    </label></p>
+                    <p><label>
+                      <input ng-disabled="subj1Dsb" type="radio" ng-model="ans.$index" value="B" ng-change="userAns(3, ques.ans, ans.$index, ques.quesNum)"> 
+                      <b>B.</b> 
+                      <span ng-if="ques.optionB.slice(-4) == '.png' || ques.optionB.slice(-4) == '.jpg'">
+                        <span><img ng-src="img/{{ques.optionB}}" width="100%"></span>
+                      </span>
+                      <span ng-if="ques.optionB.slice(-4) != '.png' && ques.optionB.slice(-4) != '.jpg'">
+                        <span ng-bind-html="ques.optionB"></span>
+                      </span> 
+                      
+                    </label></p>
+                    <p><label>
+                      <input ng-disabled="subj1Dsb" type="radio" ng-model="ans.$index" value="C" ng-change="userAns(3, ques.ans, ans.$index, ques.quesNum)"> 
+                      <b>C.</b> 
+                      <span ng-if="ques.optionC.slice(-4) == '.png' || ques.optionC.slice(-4) == '.jpg'">
+                        <span><img ng-src="img/{{ques.optionC}}" width="100%"></span>
+                      </span>
+                      <span ng-if="ques.optionC.slice(-4) != '.png' && ques.optionC.slice(-4) != '.jpg'">
+                        <span ng-bind-html="ques.optionC"></span>
+                      </span>  
+                      
+                    </label></p>
+                    <p><label>
+                      <input ng-disabled="subj1Dsb" type="radio" ng-model="ans.$index" value="D" ng-change="userAns(3, ques.ans, ans.$index, ques.quesNum)"> 
+                      <b>D.</b> 
+                      <span ng-if="ques.optionD.slice(-4) == '.png' || ques.optionD.slice(-4) == '.jpg'">
+                        <span><img ng-src="img/{{ques.optionD}}" width="100%"></span>
+                      </span>
+                      <span ng-if="ques.optionD.slice(-4) != '.png' && ques.optionD.slice(-4) != '.jpg'">
+                        <span ng-bind-html="ques.optionD"></span>
+                      </span>
+                  </label></p>
+                    <input type="radio" checked="checked" value="5" style="display:none" id="radio3_{{ques.quesNum}}" ng-model="ans.$index">
+                    <input type="hidden" value="{{ques.ans}}" name="quesEncrypt_{{ques.quesNum}}">
+                  </form>               
+                
+            </div>
+            
+            <div class = "item item-divider">
+                <button  class="button button-positive" style="float: left;" ng-click="goToPrev(3)"> Prev </button>
+                <button class="button button-positive" style="float: right;" ng-click="goToNext(3)"> Next </button>
+            </div>
+          </div>
+
+          <div ng-repeat="n in subj3Buttons" class="centre">
+              <button ng-click="goToInd(3, n.number)" class="button button-small" id="indi{{n.number}}" style="float: left; margin-right: 2px; margin-bottom: 2px;" ng-class="(subj3Index  === $index? 'button-positive': '')+ ' '+(subj3UserAnswer[$index].ans === 'Unattempted'? '': 'green')">{{n.number}}</button>
+          </div>
+      </div>
+      <div id="4" class="subjQ">
+          <h2>{{subj4T}}</h2>
+          <div  class = "card list questions" id="question_{{ques.quesNum}}" ng-repeat="ques in subj2Ques" ng-class="{'activ8d': subj4Index  === $index}">
+              <div class = "item item-divider">
+                  Question {{ques.quesNum}}
+                  <!--<span class="wrong" ng-class="{'right': ques.ans === ans.$index}" ng-show="subj4Tf">
+                      {{ques.ans === ans.$index ? 'Correct': 'Incorrect (Answer: '+ques.ans+')'}}
+                  </span>-->
+              </div>
+              
+              <div class = "item item-text-wrap">
+                  <span ng-if="ques.passage">
+                    <p class="passage" style="background-color: #E5E7E9; padding: 3px;">
+                      <span ng-bind-html="ques.passage"></span>
+                    </p>
+                  </span>
+                  <span ng-if="ques.fileName">
+                    <img ng-src="img/{{ques.fileName}}" width="100%">
+                  </span>
+                  <p class="ques" style="font-weight: bold;">
+                    <span ng-bind-html="ques.ques"></span>
+                  </p>
+                  <form style="top: 1vh">                      
+                  
+                  <p><label>
+                        <input ng-disabled="subj1Dsb" type="radio" ng-model="ans.$index" value="A" ng-change="userAns(4, ques.ans, ans.$index, ques.quesNum)"> 
+                        <b>A.</b> 
+                        <span ng-if="ques.optionA.slice(-4) == '.png' || ques.optionA.slice(-4) == '.jpg'">
+                          <span><img ng-src="img/{{ques.optionA}}" width="100%"></span>
+                        </span>
+                        <span ng-if="ques.optionA.slice(-4) != '.png' && ques.optionA.slice(-4) != '.jpg'">
+                          <span ng-bind-html="ques.optionA"></span></p>
+                        </span>
+                      </label></p>
+                      <p><label>
+                        <input ng-disabled="subj1Dsb" type="radio" ng-model="ans.$index" value="B" ng-change="userAns(4, ques.ans, ans.$index, ques.quesNum)"> 
+                        <b>B.</b> 
+                        <span ng-if="ques.optionB.slice(-4) == '.png' || ques.optionB.slice(-4) == '.jpg'">
+                          <span><img ng-src="img/{{ques.optionB}}" width="100%"></span>
+                        </span>
+                        <span ng-if="ques.optionB.slice(-4) != '.png' && ques.optionB.slice(-4) != '.jpg'">
+                          <span ng-bind-html="ques.optionB"></span>
+                        </span> 
+                      </label></p>
+                      <p><label>
+                        <input ng-disabled="subj1Dsb" type="radio" ng-model="ans.$index" value="C" ng-change="userAns(4, ques.ans, ans.$index, ques.quesNum)"> 
+                        <b>C.</b> 
+                        <span ng-if="ques.optionC.slice(-4) == '.png' || ques.optionC.slice(-4) == '.jpg'">
+                          <span><img ng-src="img/{{ques.optionC}}" width="100%"></span>
+                        </span>
+                        <span ng-if="ques.optionC.slice(-4) != '.png' && ques.optionC.slice(-4) != '.jpg'">
+                          <span ng-bind-html="ques.optionC"></span>
+                        </span>  
+                      </label></p>
+                      <p><label>
+                        <input ng-disabled="subj1Dsb" type="radio" ng-model="ans.$index" value="D" ng-change="userAns(4, ques.ans, ans.$index, ques.quesNum)"> 
+                        <b>D.</b> 
+                        <span ng-if="ques.optionD.slice(-4) == '.png' || ques.optionD.slice(-4) == '.jpg'">
+                          <span><img ng-src="img/{{ques.optionD}}" width="100%"></span>
+                        </span>
+                        <span ng-if="ques.optionD.slice(-4) != '.png' && ques.optionD.slice(-4) != '.jpg'">
+                          <span ng-bind-html="ques.optionD"></span>
+                        </span>
+                      </label></p>
+                      <input type="radio" checked="checked" value="5" style="display:none" id="radio5_{{ques.quesNum}}" ng-model="ans.$index">
+                      <input type="hidden" value="{{ques.ans}}" name="quesEncrypt_{{ques.quesNum}}">
+                    </form>               
+                  
+              </div>
+              
+              <div class = "item item-divider">
+                  <button  class="button button-positive" style="float: left;" ng-click="goToPrev(4)"> Prev </button>
+                  <button class="button button-positive" style="float: right;" ng-click="goToNext(4)"> Next </button>
+              </div>
+            </div>
+
+          <div ng-repeat="n in subj4Buttons" class="centre">
+              <button ng-click="goToInd(4, n.number)" class="button button-small" id="indi{{n.number}}" style="float: left; margin-right: 2px; margin-bottom: 2px;" ng-class="(subj4Index  === $index? 'button-positive': '')+ ' '+(subj4UserAnswer[$index].ans === 'Unattempted'? '': 'green')">{{n.number}}</button>
+          </div>
+      </div>
+
+    </ion-content>
+  </ion-view>
+  
+</script>
+<!--Pay 4 PREP50-->
+<script id="templates/pay.html" type="text/ng-template">
+  <div class = "bar bar-header bar-assertive">
+    <button class = "button icon ion-chevron-left" ng-click="myGoBack()"></button>
+      <h1 class = "title">Pay for PREP50</h1>
+    <!--<button class = "button icon ion-home" ng-click="goToDash()"></button>    -->
+  </div>
+  <ion-view class="pay">
+    <ion-nav-view  class="has-header"> 
+      <ion-content> 
+        <div class="row payRow">
+          <div class="col col-100">
+            <h2>Pay with Card</h2>
+            <p>
+              <b>Pay with your ATM Card (Most Recommended).</b>
+            </p>
+            <a class="item item-icon-right assertive" ng-click="pay4PREP50(1)">
+                <i class="icon ion-chevron-right"></i>
+                Pay with Card
+            </a>
+          </div>
+        </div>
+        <div class="row payRow">
+            <div class="col col-100">
+              <h2>Pay with Agent Code</h2>
+              <p>
+                <b>Pay with Agent Code (Recommended).</b>              
+              </p>
+              <a class="item item-icon-right assertive" ng-click ="pay4PREP50(3)">
+                  <i class="icon ion-chevron-right"></i>
+                  Pay with Agent Code
+              </a>
+            </div>
+        </div>
+        <div class="row payRow">
+          <div class="col col-100">
+            <h2>Pay with Bank Deposit</h2>
+            <p>
+              <b>Make deposit into our Bank account.</b><br>              
+            </p>
+            <a class="item item-icon-right assertive" ng-click ="pay4PREP50(2)">
+                <i class="icon ion-chevron-right"></i>
+                Make Bank Deposit
+            </a>
+          </div>
+        </div>
+      </ion-content>
+    </ion-nav-view>
+  </ion-view>
+  <div class = "bar bar-footer bar-assertive">         
+  </div>
+</script>
+<!--Pay 4 PREP50 Ends-->
+<!--DashBoard resMgt-->
+<script id="templates/resMgt.html" type="text/ng-template">
+      <div class = "bar bar-header bar-assertive">
+        <h1 class = "title">Study Materials Manager</h1>
+      </div>
+
+      <ion-view>           
+        <ion-nav-view  class="has-header">    
+          <ion-content class="padBtm">
+            <ul class="list">
+              <li class="item item-divider">
+                  Instruction
+              </li>            
+               <li class="item item-text-wrap">
+                Due to network problem you were not able to download and setup all the resources needed for PREP50. <br>
+                Please establish an internet connection and click on the download button(s) to complete initial setup.
+              </li>
+              <li class="item item-divider">
+                Resources Check
+              </li>   
+              <span ng-if="ques === 'N'">           
+                <li class="item item-button-right">        
+                  Questions        
+                  <button class="button button-positive" ng-click="getQues()" id="getQues">
+                    <i class="icon ion-ios-cloud-download"></i>
+                  </button>                                    
+                </li>
+              </span>
+              <span ng-if="study === 'N'">           
+                <li class="item item-button-right">        
+                  Tutorials   
+                  <button class="button button-positive" ng-click="getStudy()" id="getStudy">
+                    <i class="icon ion-ios-cloud-download"></i>
+                  </button>                                         
+                </li>
+              </span>    
+              <!--<span ng-if="activities === 'N'">           
+                <li class="item item-icon-right">        
+                  Others        
+                  <span ng-click=""><i class="icon ion-ios-cloud-download"></i></span>                  
+                </li>
+              </span>-->
+            </ul>     
+          </ion-content>   
+        </ion-nav-view>        
+      </ion-view>
+</script>
+<!--DashBoard resMgt Ends-->
+
+<!--DashBoard Inclass-->
+<script id="templates/dashInClass.html" type="text/ng-template">
+      <div class = "bar bar-header bar-assertive">
+        <h1 class = "title">In-Class Dashboard</h1>
+      </div>
+
+      <ion-view>           
+        <ion-nav-view  class="has-header">    
+          <ion-content class="padBtm">
+                          <div class="list card">
+
+                            <div class="item">
+                              <h2>In-Class Support</h2>
+                            </div>
+
+                            <div class="item item-image">
+                              <img src="img/class.jpg">
+                            </div>
+                            <div class="item item-text-wrap b">
+                            <span class="das">Use <span class="assertive">PREP50</span> as an integral part of a learning system including a proffessional JAMB preparatory instructor. Here you are expected to study an assigned topic and answer JAMB past question related to the topic before attending the instructor-led class for a review.</span>
+                            </div>  
+                            <div class="item">
+                              <i class="icon ion-android-pin"></i> PREP50 powered JAMB prep center.
+                            </div>                    
+                            <a class="item item-icon-right assertive" ui-sref="inClass">
+                              <i class="icon ion-chevron-right"></i>
+                              Continue
+                            </a>
+
+                          </div>
+          </ion-content>   
+        </ion-nav-view>        
+      </ion-view>
+</script>
+<!--DashBoard Inclass Ends-->
+
+    <!--DashBoard StudyPlan-->
+    <script id="templates/dashStudy.html" type="text/ng-template">
+      <div class = "bar bar-header bar-assertive">
+        <h1 class = "title">Study</h1>
+      </div>
+
+      <ion-view>           
+        <ion-nav-view  class="has-header">    
+          <ion-content class="padBtm">
+                        <div class="list card">
+
+                          <div class="item">
+                            <h2>PREP50 Study</h2>
+                          </div>
+
+                          <div class="item item-image">
+                            <img src="img/calendar.jpg">
+                          </div>
+
+                          <div class="item item-text-wrap b">
+                          <span class="das">Use <span class="assertive">PREP50</span> as an integral part of a learning system including a proffessional JAMB preparatory instructor. Here you are expected to study an assigned topic and answer JAMB past question related to the topic before attending the instructor-led class for a review.</span>
+                          </div>  
+                          <div class="item">
+                            <i class="icon ion-android-pin"></i> Any location.
+                          </div>                    
+                          <a class="item item-icon-right assertive" ui-sref="studyPlan">
+                            <i class="icon ion-chevron-right"></i>
+                            Continue
+                          </a>
+
+                        </div>
+                        </ion-content>   
+        </ion-nav-view>        
+      </ion-view>
+    </script>
+    <!--DashBoard StudyPlan Ends-->
+
+    <!--DashBoard Past Question-->
+    <script id="templates/dashQa.html" type="text/ng-template">
+      <div class = "bar bar-header bar-assertive">
+        <h1 class = "title">Past Question Dashboard</h1>
+      </div>
+
+      <ion-view>           
+        <ion-nav-view  class="has-header">    
+          <ion-content class="padBtm">
+                        <div class="list card">
+
+                          <div class="item">
+                            <h2>JAMB Past Questions</h2>
+                          </div>
+
+                          <div class="item item-image">
+                            <img src="img/qa.jpg">
+                          </div>
+
+                          <div class="item item-text-wrap b">
+                          <span class="das">Use <span class="assertive">PREP50</span> as an integral part of a learning system including a proffessional JAMB preparatory instructor. Here you are expected to study an assigned topic and answer JAMB past question related to the topic before attending the instructor-led class for a review.</span>
+                          </div>  
+                          <div class="item">
+                            <i class="icon ion-android-pin"></i> Any location.
+                          </div>                    
+                          <a class="item item-icon-right assertive" ui-sref="pastQues">
+                            <i class="icon ion-chevron-right"></i>
+                            Continue
+                          </a>
+
+                        </div>
+                        </ion-content>   
+        </ion-nav-view>        
+      </ion-view>
+    </script>
+    <!--DashBoard Past Question Ends-->
+    
+<!--Study Plan Dash-->
+<script id="templates/studyPlanDash.html" type="text/ng-template">
+  <div class = "bar bar-header bar-assertive">
+    <button class = "button icon ion-home" ng-click="goToDash()"></button>
+    <h1 class = "title">Study Dashboard</h1>    
+  </div>
+  
+  <ion-view class="studyPlan">      
+    <ion-content class="has-header overflow-scroll" overflow-scroll="true" scroll="false">
+      
+      <div class = "row">
+        <div class = "col col-50" ng-repeat="subj in userSubj">
+          <div class="list card">
+            <div class="item item-dark">
+              <h3 style="color: #fff">{{subj.subj}}</h3>
+            </div>
+            <div class="item item-image">
+              <img ng-src="img/{{subj.subj}}.jpg" width="100%">
+            </div>  
+            <a class="item assertive" ui-sref="studyTopics({subjName: '{{subj.subj}}', subjId: '{{subj.subjId}}' })" font-size="0.5em">
+              Continue <span style="float: right;"><i class="icon ion-arrow-right-b"></i></span>
+            </a>              
+          </div>
+        </div>           
+      </div>
+
+      <div class = "row">
+        <div class = "col col-50" ng-repeat="subj in userSubj.slice(2,userSubj.length)">
+          <div class="list card">
+            <div class="item item-dark">
+              <h3 style="color: #fff">{{subj.subj}}</h3>
+            </div>
+            <div class="item item-image">
+              <img ng-src="img/{{subj.subj}}.jpg" width="100%">
+            </div>  
+            <a class="item assertive" ui-sref="studyTopics({subjName: '{{subj.subj}}', subjId: '{{subj.subjId}}' })" font-size="0.5em">
+              Continue <span style="float: right;"><i class="icon ion-arrow-right-b"></i></span>
+            </a>            
+          </div>
+        </div>           
+      </div>
+
+    </ion-content>
+    <div class = "bar bar-footer bar-assertive">
+         
+      </div>
+  </ion-view>
+</script>
+<!--Study Plan Ends-->
+
+<!--Study Topics-->
+<script id="templates/studyTopics.html" type="text/ng-template">
+  <div class = "bar bar-header bar-assertive">
+      <button class = "button icon ion-chevron-left" ng-click="myGoBack()"></button>
+      <h1 class = "title">{{subj}}</h1>
+      <button class = "button icon ion-home" ng-click="gstduyPlanoToDash()"></button>
+   </div>
+   
+   <div class = "bar bar-subheader">
+      <h2 class = "title">Topics</h2>
+   </div>
+    
+    <ion-view>  
+        <ion-content class="has-header has-subheader">
+          <div class="list card">
+            <a class="item item-icon-right dark" ng-repeat="topic in studyTopics" ui-sref="studyTopicsObj({topicName: '{{topic.topic}}', topicId: '{{topic.topicId}}', subjName: '{{subj}}', subjId: '{{subjId}}'})" font-size="0.5em">
+                <!--<i class="icon ion-chevron-right" font-size="0.5em"></i>-->
+                <span ng-if="topic.progress == 0">
+                  <i class="icon ion-battery-empty" font-size="1vw"></i>	
+                </span>
+                <span ng-if="topic.progress < 75 && topic.progress > 0">
+                  <i class="icon ion-battery-low" font-size="1vw"></i>	
+                </span>
+                <span ng-if="topic.progress > 75 && topic.progress < 90">
+                  <i class="icon ion-battery-half" font-size="1vw"></i>	
+                </span>
+                <span ng-if="topic.progress > 90">
+                  <i class="icon ion-battery-full" font-size="1vw"></i>	
+                </span>
+                {{topic.topic}}
+            </a>
+          </div>
+      </ion-content>
+    </ion-view>
+</script>
+<!--Study Topics Ends-->
+
+<!--Study Topics Obj-->
+<script id="templates/studyTopicsObj.html" type="text/ng-template">
+  <div class = "bar bar-header bar-assertive">
+      <button class = "button icon ion-chevron-left" ng-click="myGoBack()"></button>
+      <h1 class = "title">{{topic}}</h1>
+      <button class = "button icon ion-home" ng-click="goToDash()"></button>
+  </div>
+   
+  <div class = "bar bar-subheader">
+      <h2 class = "title">Objectives</h2>
+  </div>  
+  
+  <ion-view>  
+      <ion-content class="has-header has-subheader">
+        <div class="list card">
+          <span ng-repeat="obj in topicsObj">
+            <span ng-if="obj.active === 'Y'">
+              <a class="item item-icon-right dark" ui-sref="studyPlanDayTask({objName: '{{obj.obj}}', objId: '{{obj.objId}}', subjName: '{{subj}}', subjId: '{{subjId}}', topicName: '{{topic}}', topicId: '{{topicId}}'})" font-size="0.5em">
+                  <!--<i class="icon ion-chevron-right" font-size="0.5em"></i>-->
+                  {{obj.obj}}
+                  <i class="badge badge-assertive">{{obj.progress}}%</i>
+              </a>
+            </span>
+            <span ng-if="obj.active === 'N'">
+                <a class="item item-icon-right dark" font-size="0.5em" ng-click="notPaid()">
+                    {{obj.obj}}
+                    <i class="badge badge-assertive">{{obj.progress}}%</i>
+                </a>
+            </span>
+          <span>
+        </div>
+    </ion-content>
+  </ion-view>
+</script>
+<!--Study Topics Obj Ends-->
+
+<!--Study Plan Day Task-->
+<script id="templates/studyPlanDayTask.html" type="text/ng-template">
+  <div class = "bar bar-header bar-assertive">
+      <button class = "button icon ion-chevron-left" ng-click="myGoBack()"></button>
+      <h1 class = "title">
+        <span class="headSubj">{{topic}}</span>
+      </h1>
+      <button class = "button icon ion-home" ng-click="goToDash()"></button>
+  </div>
+   
+  <div class = "bar bar-subheader">
+      <h4 class = "title">{{obj}}</h4>
+  </div> 
+  <ion-view>        
+      <!--<ion-content class="has-header has-subheader">-->
+        <ion-tabs class="tabs-icon-top tabs-assertive">
+          
+          <ion-tab title="Study" icon="icon ion-ios-book">
+            <ion-content class="has-header has-subheader has-subH">
+              <ul class="list over">
+                <span ng-repeat="tut in tuts">
+                  <li class="item item-stable" ng-click="toggleTut(tut)" ng-class="{active: isTutShown(tut)}">
+                    <i class="icon" ng-class="isTutShown(tut) ? 'ion-arrow-up-b' : 'ion-arrow-down-b'"></i> {{tut.obj}}
+                  </li>
+                  <li class="item item-text-wrap item-accordion" ng-show="isTutShown(tut)" ng-bind-html="tut.content">
+
+                  </li>
+                </span>
+              </ul>
+              
+            </ion-content>
+          </ion-tab>
+
+          <ion-tab title="Game" icon="icon ion-ios-game-controller-b">
+            <ion-content class="has-header has-subheader has-subH">
+              <div class="gameBtn">
+                <span ng-if="inst === false">
+                  <button class="button button-small icon-left ion-information-circled button-calm" ng-click="instruct()">Instructions</button>
+                </span>
+                <span ng-if="inst === true">
+                  <button class="button button-small icon-left ion-chevron-left button-calm" ng-click="instruct()">Get Back</button>
+                </span>
+                <button class="button button-small icon-left ion-paper-airplane button-stable" ng-click="submit()" ng-hide="inst">Assess</button>
+                <button class="button button-small icon-left ion-refresh button-assertive" ng-click="afresh()" ng-hide="inst"><span icon="icon ion-refresh" ></span> Start afresh</button>
+              </div>
+              <div class="" id="slider"  class="overflow-scroll">
+                <div class="cad" ng-show="inst">
+                  <div class="cadHead">
+                    <h2>Instruction</h2>
+                  </div>
+                  <div class="cadBody cadBodyDefault slide-copy" >
+                    <div class="quest">
+                      <p>The goal of this puzzle/game is to improve your retentive memory. You are expected to :
+                        <b>Select the questions that belong to the objective you just studied</b>.
+                      </p>
+                      <ul>
+                        <li>Use the "next" and "prev" navigation controls to navigate through the questions.</li> 
+                        <li>When you identify a question under this objective, click on the objective name just above the progress bar to colour the question background.</li>
+                        <li>The number in the progress bar example (4/20) stipulates the number of questions you have selected against the number of questions you are expected to select.</li>
+                        <li>If you want to change your selection, use the ‘clear’ button to clear the red colour and remove a question you have added earlier.</li>
+                        <li>When you are done with the sorting example (20/20), click on the "Asses" button @ the bottom of this page to assess your performance.</li>
+                        <li>If you scored above 50%, you will see the “Proceed to Classwork” button, click on it to get you to the page where you will answer the questions; Else, you will replay the sort game. </li>
+                      </ul>
+                      <p>Click on "next" to start the game.</p>
+                    </div>
+                  </div>
+                  <div class="cadFoot">
+                    
+                  </div>
+                </div>
+              
+                <div ng-hide="inst" class="cad gameQuest"  ng-repeat="ques in gameQues" ng-class="{'activ8d': index  === $index}">
+                  <div class="cadHead">
+                    <h2>{{$index + 1}}</h2>
+                  </div>
+                  <div class="cadBody slide-copy" ng-class="gameCad[$index].color === 'none'? 'cadBodyDefault': gameCad[$index].color"  name="{{ques.topicId}}" id="{{$index + 1}}" data-objtQ = "{{ques.objectiveId}}">
+                    <div class="quest">
+                      <p ng-bind-html="ques.ques"></p>
+
+                      <span ng-if="ques.img"><img ng-src="img/{{ques.img}}" width="100%"></span>
+                      <div class="opt">
+
+                        <p><b>A.</b>
+                          <span ng-if="ques.optionA.slice(-4) == '.png' || ques.optionA.slice(-4) == '.jpg'">
+                            <span><img ng-src="img/{{ques.optionA}}" width="100%"></span>
+                          </span>
+                          <span ng-if="ques.optionA.slice(-4) != '.png' && ques.optionA.slice(-4) != '.jpg'">
+                            <span ng-bind-html="ques.optionA"></span></p>
+                          </span>
+                        </p>
+
+                        <p><b>B.</b>
+                          <span ng-if="ques.optionB.slice(-4) == '.png' || ques.optionB.slice(-4) == '.jpg'">
+                            <span><img ng-src="img/{{ques.optionB}}" width="100%"></span>
+                          </span>
+                          <span ng-if="ques.optionB.slice(-4) != '.png' && ques.optionB.slice(-4) != '.jpg'">
+                            <span ng-bind-html="ques.optionB"></span>
+                          </span>
+                        </p>
+
+                        <p><b>C.</b>
+                          <span ng-if="ques.optionC.slice(-4) == '.png' || ques.optionC.slice(-4) == '.jpg'">
+                            <span><img ng-src="img/{{ques.optionC}}" width="100%"></span>
+                          </span>
+                          <span ng-if="ques.optionC.slice(-4) != '.png' && ques.optionC.slice(-4) != '.jpg'">
+                            <span ng-bind-html="ques.optionC"></span>
+                          </span>
+                        </p>
+
+                        <p><b>D.</b>
+                          <span ng-if="ques.optionD.slice(-4) == '.png' || ques.optionD.slice(-4) == '.jpg'">
+                            <span><img ng-src="img/{{ques.optionD}}" width="100%"></span>
+                          </span>
+                          <span ng-if="ques.optionD.slice(-4) != '.png' && ques.optionD.slice(-4) != '.jpg'">
+                            <span ng-bind-html="ques.optionD"></span>
+                          </span>
+                        </p>
+
+                      </div>
+                    </div>
+                  </div>
+                  <div class="cadFoot">
+                    <ul class="list-inline">
+                      <li class="cntrl prev" ng-click="goToPrev()">&lt;&lt; Prev</li>
+                      <li class="cntrl clear" ng-click="clear()"><span class="glyphicon glyphicon-erase"></span> Clear</li>
+                      <li class="cntrl next" ng-click="goToNext()">Next &gt;&gt;</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <div class="padding-horizontal" id="sortCtrl" ng-hide="inst">
+                
+                <!--<span ng-if="num  === 3">
+
+                  <span class="mua" data-objt="{{firstObjId}}" data-topic="{{topic1}}" data-class="red" ng-click="muaProcess({{firstObjId}}, {{topic1}}, {{blood}}, 1)">{{title1}}</span>
+                  <div class="progress">                 
+                    <div class="progress-bar red" role="progressbar" aria-valuenow="{{progPer}}" aria-valuemin="0" aria-valuemax="100" style="width:{{progPer1}}%">
+                      <span class="done">{{prog1}} / {{numF}}</span>
+                    </div>
+                  </div>
+
+                  <span class="mua" data-objt="{{secondObjId}}" data-topic="{{topic2}}" data-class="purple" ng-click="muaProcess({{secondObjId}}, {{topic2}}, {{purple}}, 2)">{{title2}}</span>
+                  <div class="progress">                 
+                    <div class="progress-bar purple" role="progressbar" aria-valuenow="{{progPer}}" aria-valuemin="0" aria-valuemax="100" style="width:{{progPer2}}%">
+                      <span class="done">{{prog2}} / {{numS}}</span>
+                    </div>
+                  </div>
+
+                  <span class="mua" data-objt="{{thirdObjId}}" data-topic="{{topic3}}" data-class="red" ng-click="muaProcess({{thirdObjId}}, {{topic3}}, {{yellow}}, 3)">{{title3}}</span>
+                  <div class="progress">                 
+                    <div class="progress-bar yellow" role="progressbar" aria-valuenow="{{progPer}}" aria-valuemin="0" aria-valuemax="100" style="width:{{progPer3}}%">
+                      <span class="done">{{prog3}} / {{numT}}</span>
+                    </div>
+                  </div>
+
+                </span>
+
+                <span ng-if="num  === 2">
+
+                  <span class="mua" data-objt="{{firstObjId}}" data-topic="{{topic1}}" data-class="red" ng-click="muaProcess({{firstObjId}}, {{topic1}}, {{blood}}, 1)">{{title1}}</span>
+                  <div class="progress">                 
+                    <div class="progress-bar red" role="progressbar" aria-valuenow="{{progPer}}" aria-valuemin="0" aria-valuemax="100" style="width:{{progPer1}}%">
+                      <span class="done">{{prog1}} / {{numF}}</span>
+                    </div>
+                  </div>
+
+                  <span class="mua" data-objt="{{secondObjId}}" data-topic="{{topic2}}" data-class="purple" ng-click="muaProcess({{secondObjId}}, {{topic2}}, {{purple}}, 2)">{{title2}}</span>
+                  <div class="progress">                 
+                    <div class="progress-bar purple" role="progressbar" aria-valuenow="{{progPer}}" aria-valuemin="0" aria-valuemax="100" style="width:{{progPer2}}%">
+                      <span class="done">{{prog2}} / {{numS}}</span>
+                    </div>
+                  </div>               
+
+                </span>-->
+
+
+                  <span class="mua" ng-hide="ass" data-objt="{{firstObjId}}" data-topic="{{topic1}}" data-class="red" ng-click="muaProcess({{firstObjId}}, {{topic1}}, {{blood}}, 1)">{{obj}}</span>
+                  <div class="progress">                 
+                    <div class="progress-bar red" role="progressbar" aria-valuenow="{{progPer}}" aria-valuemin="0" aria-valuemax="100" style="width:{{progPer1}}%">
+                      <span class="done">{{prog1}} / {{numF}}</span>
+                    </div>
+                  </div>
+
+              </div>
+              <div id="buttons" ng-hide="inst">
+                <div ng-repeat="n in buttons">
+                  <button ng-click="goToInd(n.number)" 
+                          class="button button-small" id="indi{{n.number}}" 
+                          style="float: left; margin-right: 2px; margin-bottom: 2px;" 
+                          ng-class="(index  === $index? 'button-positive': '')+ ' '+(gameCad[$index].color === 'none'? '': gameCad[$index].color)">{{n.number}}</button>
+                </div>
+              </div>
+            </ion-content>
+            
+          </ion-tab>
+
+          <ion-tab title="Q & A" icon="icon ion-android-done-all">
+            <ion-content class="has-subheader has-subH">
+              <div  class = "card list questions" ng-repeat="ques in qaQues" ng-class="{'activ8d': qaIndex  === $index}">
+                <div class = "item item-divider">
+                    Question {{ques.quesNum}}
+                    <span class="wrong" ng-class="{'right': ques.ans === ans.$index}" ng-show="qaAs">
+                        {{ques.ans === ans.$index ? 'Correct': 'Incorrect (Answer: '+ques.ans+')'}}
+                    </span>
+                </div>
+                 
+                <div class = "item item-text-wrap">
+                    <span ng-if="ques.passage">
+                      <p class="passage" style="background-color: #E5E7E9; padding: 3px;">
+                        <span ng-bind-html="ques.passage"></span>
+                      </p>
+                    </span>
+                    <p class="ques" style="font-weight: bold;">
+                      <span ng-bind-html="ques.ques"></span>
+                    </p>
+                    <span ng-if="ques.fileName">
+                        <img ng-src="img/{{ques.fileName}}" width="100%">
+                    </span>
+                    <form>
+                      
+                      <p>
+                        <input ng-disabled="qaDsb" type="radio" ng-model="ans.$index" value="A" ng-change="qaUserAns(ques.ans, ans.$index, ques.quesNum)"> 
+                        <b>A.</b> 
+                        <span ng-if="ques.optionA.slice(-4) == '.png' || ques.optionA.slice(-4) == '.jpg'">
+                          <span><img ng-src="img/{{ques.optionA}}" width="100%"></span>
+                        </span>
+                        <span ng-if="ques.optionA.slice(-4) != '.png' && ques.optionA.slice(-4) != '.jpg'">
+                          <span ng-bind-html="ques.optionA"></span></p>
+                        </span>
+                        <!--<span ng-bind-html="ques.optionA"></span>-->
+                      </p>
+                      <p>
+                        <input ng-disabled="qaDsb" type="radio" ng-model="ans.$index" value="B" ng-change="qaUserAns(ques.ans, ans.$index, ques.quesNum)"> 
+                        <b>B.</b> 
+                        <span ng-if="ques.optionB.slice(-4) == '.png' || ques.optionB.slice(-4) == '.jpg'">
+                          <span><img ng-src="img/{{ques.optionB}}" width="100%"></span>
+                        </span>
+                        <span ng-if="ques.optionB.slice(-4) != '.png' && ques.optionB.slice(-4) != '.jpg'">
+                          <span ng-bind-html="ques.optionB"></span>
+                        </span> 
+                        <!--<span ng-bind-html="ques.optionB"></span>-->
+                      </p>
+                      <p>
+                        <input ng-disabled="qaDsb" type="radio" ng-model="ans.$index" value="C" ng-change="qaUserAns(ques.ans, ans.$index, ques.quesNum)"> 
+                        <b>C.</b> 
+                        <span ng-if="ques.optionC.slice(-4) == '.png' || ques.optionC.slice(-4) == '.jpg'">
+                          <span><img ng-src="img/{{ques.optionC}}" width="100%"></span>
+                        </span>
+                        <span ng-if="ques.optionC.slice(-4) != '.png' && ques.optionC.slice(-4) != '.jpg'">
+                          <span ng-bind-html="ques.optionC"></span>
+                        </span>  
+                        <!--<span ng-bind-html="ques.optionC"></span>-->
+                      </p>
+                      <p>
+                        <input ng-disabled="qaDsb" type="radio" ng-model="ans.$index" value="D" ng-change="qaUserAns(ques.ans, ans.$index, ques.quesNum)"> 
+                        <b>D.</b> 
+                        <span ng-if="ques.optionD.slice(-4) == '.png' || ques.optionD.slice(-4) == '.jpg'">
+                          <span><img ng-src="img/{{ques.optionD}}" width="100%"></span>
+                        </span>
+                        <span ng-if="ques.optionD.slice(-4) != '.png' && ques.optionD.slice(-4) != '.jpg'">
+                          <span ng-bind-html="ques.optionD"></span>
+                        </span>
+                        <!--<span ng-bind-html="ques.optionD"></span>-->
+                      </p>
+                      <input type="radio" checked="checked" value="5" style="display:none" id="radio4_{{ques.quesNum}}" ng-model="ans.$index">
+                      <input type="hidden" value="{{ques.ans}}" name="quesEncrypt_{{ques.quesNum}}">
+                      <!--<input type="hidden" value="{{ques.questionId}}" name="quesId_{{ques.quesNum}}">
+                      <input type="hidden" value="{{ques.question}}" name="ques_{{ques.quesNum}}">-->
+                    </form>
+                    
+                </div>
+                 
+                <div class = "item item-divider">
+                  <button  class="button button-positive" style="float: left;" ng-click="qaGoToPrev()"> Prev </button>
+                  <button class="button button-positive" style="float: right;" ng-click="qaGoToNext()"> Next </button>
+                </div>
+                
+              </div>
+              <div class="padding-horizontal">
+                <div ng-repeat="n in qaBtns" class="centre">
+                    <button ng-click="qaGoToInd(n.number)" id="qaBtn{{n.number}}" class="button button-small" style="float: left; margin-right: 2px; margin-bottom: 2px;" ng-class="(qaIndex  === $index? 'button-positive': '')+ ' '+(qaQues[$index].userAns === 'Unattempted'? '': 'green')">{{n.number}}</button>
+                </div>
+                <button ng-disabled="qaDsb" class="button button-block button-stable" ng-click="qaSubmit()">
+                  Submit
+                </button>
+              </div>
+            </ion-content>
+          </ion-tab>
+
+        </ion-tabs>
+      <!--</ion-content>-->
+    </ion-view>
+</script>
+<!--Study Plan Day Task Ends-->
+
+  <!--Study Plan ReviewDay Task-->
+  <script id="templates/studyPlanQuizTask.html" type="text/ng-template">
+    <ion-nav-bar class="bar-assertive" align-title="center">
+                
+        <ion-nav-title>
+          {{subj}}
+        </ion-nav-title>
+        <ion-nav-buttons side="right">
+            <button class="button button-clear  ion-home" ng-click="goToDash()"></button>
+        </ion-nav-buttons>
+      </ion-nav-bar>
+      <div class = "bar bar-subheader">
+         <h2 class = "title">Day {{day}} Quiz</h2>
+      </div>
+
+      <ion-view class="signUp">
+        
+        <ion-content class="has-header has-subheader overflow-scroll" overflow-scroll="true" scroll="false" padding="true">
+          
+          <div  class = "card list questions" ng-repeat="ques in quizQues" ng-class="{'activ8d': qaIndex  === $index}">
+                <div class = "item item-divider">
+                    Question {{$index + 1}}
+                    <span class="wrong" ng-class="{'right': ques.ans === ans.$index}" ng-show="qaAs">
+                        {{ques.ans === ans.$index ? 'Correct': 'Incorrect (Answer: '+ques.ans+')'}}
+                    </span>
+                </div>
+                 
+                <div class = "item item-text-wrap">
+                    <span ng-if="ques.passage">
+                      <p class="passage" style="background-color: #E5E7E9; padding: 3px;">
+                        <span ng-bind-html="ques.passage"></span>
+                      </p>
+                    </span>
+                    <p class="ques" style="font-weight: bold;">
+                      <span ng-bind-html="ques.ques"></span>
+                    </p>
+                    <span ng-if="ques.fileName">
+                        <img ng-src="img/{{ques.fileName}}" width="100%">
+                    </span>
+                    <form>
+                      
+                      <p>
+                        <input ng-disabled="qaDsb" type="radio" ng-model="ans.$index" value="A" ng-change="qaUserAns(ques.ans, ans.$index, $index)"> 
+                        <b>A.</b> 
+                        <span ng-if="ques.optionA.slice(-4) == '.png' || ques.optionA.slice(-4) == '.jpg'">
+                          <span><img ng-src="img/{{ques.optionA}}" width="100%"></span>
+                        </span>
+                        <span ng-if="ques.optionA.slice(-4) != '.png' && ques.optionA.slice(-4) != '.jpg'">
+                          <span ng-bind-html="ques.optionA"></span></p>
+                        </span>
+                        <!--<span ng-bind-html="ques.optionA"></span>-->
+                      </p>
+                      <p>
+                        <input ng-disabled="qaDsb" type="radio" ng-model="ans.$index" value="B" ng-change="qaUserAns(ques.ans, ans.$index, $index)"> 
+                        <b>B.</b> 
+                        <span ng-if="ques.optionB.slice(-4) == '.png' || ques.optionB.slice(-4) == '.jpg'">
+                          <span><img ng-src="img/{{ques.optionB}}" width="100%"></span>
+                        </span>
+                        <span ng-if="ques.optionB.slice(-4) != '.png' && ques.optionB.slice(-4) != '.jpg'">
+                          <span ng-bind-html="ques.optionB"></span>
+                        </span> 
+                        <!--<span ng-bind-html="ques.optionB"></span>-->
+                      </p>
+                      <p>
+                        <input ng-disabled="qaDsb" type="radio" ng-model="ans.$index" value="C" ng-change="qaUserAns(ques.ans, ans.$index, $index)"> 
+                        <b>C.</b> 
+                        <span ng-if="ques.optionC.slice(-4) == '.png' || ques.optionC.slice(-4) == '.jpg'">
+                          <span><img ng-src="img/{{ques.optionC}}" width="100%"></span>
+                        </span>
+                        <span ng-if="ques.optionC.slice(-4) != '.png' && ques.optionC.slice(-4) != '.jpg'">
+                          <span ng-bind-html="ques.optionC"></span>
+                        </span>  
+                        <!--<span ng-bind-html="ques.optionC"></span>-->
+                      </p>
+                      <p>
+                        <input ng-disabled="qaDsb" type="radio" ng-model="ans.$index" value="D" ng-change="qaUserAns(ques.ans, ans.$index, $index)"> 
+                        <b>D.</b> 
+                        <span ng-if="ques.optionD.slice(-4) == '.png' || ques.optionD.slice(-4) == '.jpg'">
+                          <span><img ng-src="img/{{ques.optionD}}" width="100%"></span>
+                        </span>
+                        <span ng-if="ques.optionD.slice(-4) != '.png' && ques.optionD.slice(-4) != '.jpg'">
+                          <span ng-bind-html="ques.optionD"></span>
+                        </span>
+                        <!--<span ng-bind-html="ques.optionD"></span>-->
+                      </p>
+                      <input type="radio" checked="checked" value="5" style="display:none" id="radio4_{{ques.quesNum}}" ng-model="ans.$index">
+                      <input type="hidden" value="{{ques.ans}}" name="quesEncrypt_{{ques.quesNum}}">
+                      <!--<input type="hidden" value="{{ques.questionId}}" name="quesId_{{ques.quesNum}}">
+                      <input type="hidden" value="{{ques.question}}" name="ques_{{ques.quesNum}}">-->
+                    </form>
+                    
+                </div>
+                 
+                <div class = "item item-divider">
+                  <button  class="button button-positive" style="float: left;" ng-click="qaGoToPrev()"> Prev </button>
+                  <button class="button button-positive" style="float: right;" ng-click="qaGoToNext()"> Next </button>
+                </div>
+                
+              </div>
+              <div class="">
+                <div ng-repeat="n in qaBtns" class="centre">
+                    <button ng-click="qaGoToInd(n.number)" id="qaBtn{{n.number}}" class="button button-small" style="float: left; margin-bottom: 2px;" ng-class="(qaIndex  === $index? 'button-positive': '')+ ' '+(quizQues[$index].userAns === 'Unattempted'? '': 'green')">{{n.number}}</button>
+                </div>
+                <button ng-disabled="qaDsb" class="button button-block button-stable" ng-click="qaSubmit()">
+                  Submit
+                </button>
+              </div>
+        </ion-content>
+      </ion-view>
+  </script>
+  <!--Study Plan ReviewDay Task Ends-->
+
+  <!--IN CLASS-->
+    <!--IN CLASS-->
+    <!--INCLASS dash-->
+    <script id="templates/inClassDash.html" type="text/ng-template">
+      
+      <ion-nav-bar class="bar-assertive" align-title="center">
+        <!--<ion-nav-buttons side="left">
+            <button class="button button-clear  ion-home" ng-click="goToDash()"></button>
+        </ion-nav-buttons>-->
+        
+        <ion-nav-title>
+          In-Class Dashboard
+        </ion-nav-title>
+      </ion-nav-bar>
+
+      <ion-view class="inClass">
+        
+        <ion-content class="has-header" overflow-scroll="true">
+          <div class = "row">
+            
+            <div class = "col col-50" ng-repeat="subj in inclassPullSubj">
+              <div class="list card">
+
+                <div class="item item-dark">
+
+                  <h3 style="color: #fff">{{subj.subj}}</h3>
+                  
+                </div>
+
+                <div class="item item-image">
+                  <img ng-src="img/{{subj.subj}}.jpg" width="100%">
+                </div>  
+                <a class="item assertive" ui-sref="inClassTopics({subjName: '{{subj.subj}}', subjId: '{{subj.subjId}}'})" font-size="0.5em">
+                  Continue <span style="float: right;"><i class="icon ion-arrow-right-b"></i></span>
+                </a>              
+
+              </div>
+            </div>
+           
+          </div>
+
+
+          <div class = "row">
+             <div class = "col col-50" ng-repeat="subj in inclassPullSubj.slice(2,inclassPullSubj.length)">
+                <div class="list card">
+
+                  <div class="item item-dark">
+                    <h3 style="color: #fff">{{subj.subj}}</h3>
+                    
+                  </div>
+
+                  <div class="item item-image">
+                    <img ng-src="img/{{subj.subj}}.jpg" width="100%">
+                  </div>  
+                  <a class="item assertive" ui-sref="inClassTopics({subjName: '{{subj.subj}}', subjId: '{{subj.subjId}}'})" font-size="0.5em">
+                    Continue <span style="float: right;"><i class="icon ion-arrow-right-b"></i></span>
+                  </a>              
+
+                </div>
+             </div>
+             
+          </div>
+        </ion-content>
+      </ion-view>
+      <div class = "bar bar-footer bar-assertive">
+         
+      </div>
+    </script>
+    <!--INCLASS END Dash-->
+    <!--INCLASS Topics-->
+    <script id="templates/inClassTopics.html" type="text/ng-template">
+      
+      <ion-nav-bar class="bar-assertive" align-title="center">
+                
+        <ion-nav-title>
+          {{subjName}}
+        </ion-nav-title>
+        <!--<ion-nav-buttons side="right">
+            <button class="button button-clear  ion-home" ng-click="goToDash()"></button>
+        </ion-nav-buttons>-->
+      </ion-nav-bar>
+
+      <ion-view class="signUp">
+        
+        <ion-content class="has-header overflow-scroll" padding="true">
+          <!--<ul class="list">
+              <li class="item" ng-repeat="topic in subjTopics" style="color: #444;" ui-sref="inClassTopicsObj({topicName: '{{topic.topic}}', topicId: '{{topic.topicId}}'})">
+                 {{topic.topic}}
+              </li>              
+          </ul>-->
+          <div class="list">
+            <div ng-repeat="obj in inClassTopicObj">
+
+              <div class="item item-divider">
+                {{obj.topic}}
+              </div>
+
+              <a class="item" ui-sref="inClassTopicsObj({objName: '{{tObj.title}}', objId: '{{tObj.objId}}'})" ng-repeat="tObj in obj.obj" ng-bind-html="tObj.title">
+               
+              </a>
+
+            </div>
+          </div>
+        </ion-content>
+      </ion-view>
+         
+      </div>-->
+    </script>
+    <!--INCLASS Topics END-->
+
+    <!--INCLASS Topics Objective-->
+    <script id="templates/inClassTopicsObj.html" type="text/ng-template">
+      
+      <ion-nav-bar class="bar-assertive" align-title="center">
+                
+        <ion-nav-title>
+           {{objName}}
+        </ion-nav-title>
+        <!--<ion-nav-buttons side="right">
+            <button class="button button-clear  ion-home" ng-click="goToDash()"></button>
+        </ion-nav-buttons>-->
+      </ion-nav-bar>
+      
+
+      <ion-view class="signUp">
+        
+        <!--<ion-content class="has-header overflow-scroll" overflow-scroll="true" scroll="false" padding="true">-->
+          <ion-tabs class="tabs-icon-top tabs-assertive">          
+            <ion-tab title="Study" icon="icon ion-ios-book">
+              <ion-content class="has-subT">
+                <div ng-repeat="tut in inClassTuts" ng-bind-html="tut.content" id="tut"></div>                
+              </ion-content>
+            </ion-tab>
+            <ion-tab title="Q & A" icon="icon ion-android-done-all">
+              <ion-content class="has-subT">
+                <div  class = "card list questions" ng-repeat="ques in inClassQaQues" ng-class="{'activ8d': inclassIndex  === $index}">
+                <div class = "item item-divider">
+                    Question {{ques.quesNum}}
+                    <!--<span class="wrong" ng-class="{'right': ques.ans === ans.$index}" ng-show="qaAs">
+                        {{ques.ans === ans.$index ? 'Correct': 'Incorrect (Answer: '+ques.ans+')'}}
+                    </span>-->
+                </div>
+                 
+                <div class = "item item-text-wrap">
+                    <span ng-if="ques.passage">
+                      <p class="passage" style="background-color: #E5E7E9; padding: 3px;">
+                        <span ng-bind-html="ques.passage"></span>
+                      </p>
+                    </span>
+                    <p class="ques" style="font-weight: bold;">
+                      <span ng-bind-html="ques.ques"></span>
+                    </p>
+                    <span ng-if="ques.fileName">
+                        <img ng-src="img/{{ques.fileName}}" width="100%">
+                    </span>
+                    <form>
+                        
+                        <p>
+                          <input ng-disabled="qaDsb" type="radio" ng-model="ans.$index" value="A" ng-change="qaUserAns(ques.ans, ans.$index, ques.quesNum)"> 
+                          <b>A.</b> 
+                          <span ng-if="ques.optionA.slice(-4) == '.png' || ques.optionA.slice(-4) == '.jpg'">
+                            <span><img ng-src="img/{{ques.optionA}}" width="100%"></span>
+                          </span>
+                          <span ng-if="ques.optionA.slice(-4) != '.png' && ques.optionA.slice(-4) != '.jpg'">
+                            <span ng-bind-html="ques.optionA"></span></p>
+                          </span>
+                          <!--<span ng-bind-html="ques.optionA"></span>-->
+                        </p>
+                        <p>
+                          <input ng-disabled="qaDsb" type="radio" ng-model="ans.$index" value="B" ng-change="qaUserAns(ques.ans, ans.$index, ques.quesNum)"> 
+                          <b>B.</b> 
+                          <span ng-if="ques.optionB.slice(-4) == '.png' || ques.optionB.slice(-4) == '.jpg'">
+                            <span><img ng-src="img/{{ques.optionB}}" width="100%"></span>
+                          </span>
+                          <span ng-if="ques.optionB.slice(-4) != '.png' && ques.optionB.slice(-4) != '.jpg'">
+                            <span ng-bind-html="ques.optionB"></span>
+                          </span> 
+                          <!--<span ng-bind-html="ques.optionB"></span>-->
+                        </p>
+                        <p>
+                          <input ng-disabled="qaDsb" type="radio" ng-model="ans.$index" value="C" ng-change="qaUserAns(ques.ans, ans.$index, ques.quesNum)"> 
+                          <b>C.</b> 
+                          <span ng-if="ques.optionC.slice(-4) == '.png' || ques.optionC.slice(-4) == '.jpg'">
+                            <span><img ng-src="img/{{ques.optionC}}" width="100%"></span>
+                          </span>
+                          <span ng-if="ques.optionC.slice(-4) != '.png' && ques.optionC.slice(-4) != '.jpg'">
+                            <span ng-bind-html="ques.optionC"></span>
+                          </span>  
+                          <!--<span ng-bind-html="ques.optionC"></span>-->
+                        </p>
+                        <p>
+                          <input ng-disabled="qaDsb" type="radio" ng-model="ans.$index" value="D" ng-change="qaUserAns(ques.ans, ans.$index, ques.quesNum)"> 
+                          <b>D.</b> 
+                          <span ng-if="ques.optionD.slice(-4) == '.png' || ques.optionD.slice(-4) == '.jpg'">
+                            <span><img ng-src="img/{{ques.optionD}}" width="100%"></span>
+                          </span>
+                          <span ng-if="ques.optionD.slice(-4) != '.png' && ques.optionD.slice(-4) != '.jpg'">
+                            <span ng-bind-html="ques.optionD"></span>
+                          </span>
+                          <!--<span ng-bind-html="ques.optionD"></span>-->
+                        </p>
+                        <input type="radio" checked="checked" value="5" style="display:none" id="radio4_{{ques.quesNum}}" ng-model="ans.$index">
+                        <input type="hidden" value="{{ques.ans}}" name="quesEncrypt_{{ques.quesNum}}">
+                      </form>
+                    
+                    
+                </div>
+                 
+                <div class = "item item-divider">
+                  <button  class="button button-positive" style="float: left;" ng-click="qaGoToPrev()"> Prev </button>
+                  <button class="button button-positive" style="float: right;" ng-click="qaGoToNext()"> Next </button>
+                </div>
+                
+              </div>
+              <div class="padding-horizontal">
+                <div ng-repeat="n in inClassQaBtns" class="centre">
+                    <button ng-click="qaGoToInd(n.number)" id="qaBtn{{n.number}}" class="button button-small" style="float: left; margin-right: 2px; margin-bottom: 2px;" ng-class="(inclassIndex  === $index? 'button-positive': '')+ ' '+(inClassQaQues[$index].userAns === 'Unattempted'? '': 'green')">{{n.number}}</button>
+                </div>
+                <button ng-disabled="qaDsb" class="button button-block button-stable" ng-click="qaSubmit()">
+                  Submit
+                </button>
+              </div>
+              </ion-content>
+            </ion-tab>
+          </ion-tabs>
+          
+        <!--</ion-content>-->
+      </ion-view>
+      <!--<div class = "bar bar-footer bar-assertive">
+         
+      </div>-->
+    </script>
+    <!--INCLASS Topics Objectives END-->
+
+    <!--INCLASS Topics Objective Activity-->
+    <script id="templates/inClassTopicsObjAct.html" type="text/ng-template">
+      
+      <ion-nav-bar class="bar-assertive" align-title="center">
+                
+        <ion-nav-title>
+           {{objName}}
+        </ion-nav-title>
+        <ion-nav-buttons side="right">
+            <button class="button button-clear  ion-home" ng-click="goToDash()"></button>
+        </ion-nav-buttons>
+      </ion-nav-bar>
+      
+
+      <ion-view class="signUp">
+        
+        <ion-content class="has-header overflow-scroll" overflow-scroll="true" scroll="false" padding="true">
+          
+        </ion-content>
+      </ion-view>
+      <!--<div class = "bar bar-footer bar-assertive">
+         
+      </div>-->
+    </script>
+    <!--INCLASS Topics Objectives Activity END-->
+    <!--IN CLASS ENDS-->
+
+
+    <!--Q & A-->
+    <!--Q & A dash-->
+    <script id="templates/pastQuesDash.html" type="text/ng-template">
+      <div class = "bar bar-header bar-assertive">
+          <button class = "button icon ion-home" ng-click="goToDash()"></button>
+          <h1 class = "title">Past Question Dashboard</h1>
+          
+      </div>
+      
+
+      <ion-view class="custom">
+        
+        <ion-content class="has-header overflow-scroll" overflow-scroll="true" scroll="false">
+          <div class = "row">
+            <div class = "col col-50" ng-repeat="subj in userSubj">
+              <div class="list card">
+
+                <div class="item item-dark">
+                  <h3 style="color: #fff">{{subj.subj}}</h3>
+                  
+                </div>
+
+                <div class="item item-image">
+                  <img ng-src="img/{{subj.subj}}.jpg" width="100%">
+                </div>  
+                <a class="item assertive" ui-sref="pastQuesYear({subjName: '{{subj.subj}}', subjId: '{{subj.subjId}}' })" font-size="0.5em">
+                  Continue <span style="float: right;"><i class="icon ion-arrow-right-b"></i></span>
+                </a>              
+
+              </div>
+            </div>           
+        </div>
+
+
+        <div class = "row">
+          <div class = "col col-50" ng-repeat="subj in userSubj.slice(2,userSubj.length)">
+            <div class="list card">
+
+              <div class="item item-dark">
+                <h3 style="color: #fff">{{subj.subj}}</h3>
+              </div>
+
+              <div class="item item-image">
+                <img ng-src="img/{{subj.subj}}.jpg" width="100%">
+              </div>  
+              <a class="item assertive" ui-sref="pastQuesYear({subjName: '{{subj.subj}}', subjId: '{{subj.subjId}}' })" font-size="0.5em">
+                  Continue <span style="float: right;"><i class="icon ion-arrow-right-b"></i></span>
+              </a>              
+
+            </div>
+          </div>           
+        </div>
+
+        </ion-content>
+      </ion-view>
+      <div class = "bar bar-footer bar-assertive">
+         
+      </div>
+    </script>
+    <!--Q & A Dash Ends-->
+    <!--Past Ques Year-->
+    <script id="templates/pastQuesYear.html" type="text/ng-template">
+      <div class = "bar bar-header bar-assertive">
+          <button class = "button icon ion-chevron-left" ng-click="myGoBack()"></button>
+          <h1 class = "title">{{subjName}}</h1>
+          <button class = "button icon ion-home" ng-click="goToDash()"></button>
+      </div>
+      
+      <div class = "bar bar-subheader">
+         <h2 class = "title">Past Question Years</h2>
+      </div>
+
+      <ion-view class="signUp">
+        
+        <ion-content class="has-header has-subheader overflow-scroll" overflow-scroll="true" scroll="false" padding="true">
+          <ul class="list">
+              <li class="item" ng-repeat="year in years" style="color: #444;" ui-sref="pastQuest({subjName: '{{subjName}}', subjId: '{{subjId}}', year: '{{year.year}}' })">
+                 {{year.year}}
+                <span ng-if="year.score === 0">
+                  <span class="badge badge-calm">{{year.score}}%</span>
+                </span>
+                <span ng-if="year.score > 0">
+                  <span class="badge badge-royal">{{year.score}}%</span>
+                </span>
+              </li>              
+          </ul>
+        </ion-content>
+      </ion-view>
+      <!--<div class = "bar bar-footer bar-assertive">
+         
+      </div>-->
+    </script>
+    <!--Past Ques Years END-->
+
+    <!--Past Ques-->
+    <script id="templates/pastQuest.html" type="text/ng-template">
+      <div class = "bar bar-header bar-assertive">
+          <button class = "button icon ion-chevron-left" ng-click="myGoBack()"></button>
+          <h1 class = "title">{{subjName}}</h1>
+          <button class = "button icon ion-home" ng-click="goToDash()"></button>
+      </div>
+      
+      <div class = "bar bar-subheader">
+         <h2 class = "title">{{year}}</h2>
+      </div>
+
+      <ion-view class="signUp">
+        
+        <ion-content class="has-header has-subheader overflow-scroll" overflow-scroll="true" scroll="false" padding="true">
+          
+          <div  class = "card list questions" id="question_{{ques.quesNum}}" ng-repeat="ques in yearQues" ng-class="{'activ8d': index  === $index}">
+              <div class = "item item-divider">
+                  Question {{ques.quesNum}}
+                  <span class="wrong" ng-class="{'right': ques.ans === ans.$index}" ng-show="tf">
+                      {{ques.ans === ans.$index ? 'Correct': 'Incorrect (Answer: '+ques.ans+')'}}
+                  </span>
+              </div>
+               
+              <div class = "item item-text-wrap">
+                  <span ng-if="ques.passage">
+                    <p class="passage" style="background-color: #E5E7E9; padding: 3px;">
+                      <span ng-bind-html="ques.passage"></span>
+                    </p>
+                  </span>
+                  <span ng-if="ques.fileName">
+                    <img ng-src="img/{{ques.fileName}}" width="100%">
+                  </span>
+                  <p class="ques" style="font-weight: bold;">
+                    <span ng-bind-html="ques.ques"></span>
+                  </p>
+                  <form>
+                      
+                      <p>
+                        <input ng-disabled="dsb" type="radio" ng-model="ans.$index" value="A" ng-change="userAns(ques.ans, ans.$index, ques.quesNum)"> 
+                        <b>A.</b> 
+                        <span ng-if="ques.optionA.slice(-4) == '.png' || ques.optionA.slice(-4) == '.jpg'">
+                          <span><img ng-src="img/{{ques.optionA}}" width="100%"></span>
+                        </span>
+                        <span ng-if="ques.optionA.slice(-4) != '.png' && ques.optionA.slice(-4) != '.jpg'">
+                          <span ng-bind-html="ques.optionA"></span></p>
+                        </span>
+                        <!--<span ng-bind-html="ques.optionA"></span>-->
+                      </p>
+                      <p>
+                        <input ng-disabled="dsb" type="radio" ng-model="ans.$index" value="B" ng-change="userAns(ques.ans, ans.$index, ques.quesNum)"> 
+                        <b>B.</b> 
+                        <span ng-if="ques.optionB.slice(-4) == '.png' || ques.optionB.slice(-4) == '.jpg'">
+                          <span><img ng-src="img/{{ques.optionB}}" width="100%"></span>
+                        </span>
+                        <span ng-if="ques.optionB.slice(-4) != '.png' && ques.optionB.slice(-4) != '.jpg'">
+                          <span ng-bind-html="ques.optionB"></span>
+                        </span> 
+                        <!--<span ng-bind-html="ques.optionB"></span>-->
+                      </p>
+                      <p>
+                        <input ng-disabled="dsb" type="radio" ng-model="ans.$index" value="C" ng-change="userAns(ques.ans, ans.$index, ques.quesNum)"> 
+                        <b>C.</b> 
+                        <span ng-if="ques.optionC.slice(-4) == '.png' || ques.optionC.slice(-4) == '.jpg'">
+                          <span><img ng-src="img/{{ques.optionC}}" width="100%"></span>
+                        </span>
+                        <span ng-if="ques.optionC.slice(-4) != '.png' && ques.optionC.slice(-4) != '.jpg'">
+                          <span ng-bind-html="ques.optionC"></span>
+                        </span>  
+                        <!--<span ng-bind-html="ques.optionC"></span>-->
+                      </p>
+                      <p>
+                        <input ng-disabled="dsb" type="radio" ng-model="ans.$index" value="D" ng-change="userAns(ques.ans, ans.$index, ques.quesNum)"> 
+                        <b>D.</b> 
+                        <span ng-if="ques.optionD.slice(-4) == '.png' || ques.optionD.slice(-4) == '.jpg'">
+                          <span><img ng-src="img/{{ques.optionD}}" width="100%"></span>
+                        </span>
+                        <span ng-if="ques.optionD.slice(-4) != '.png' && ques.optionD.slice(-4) != '.jpg'">
+                          <span ng-bind-html="ques.optionD"></span>
+                        </span>
+                        <!--<span ng-bind-html="ques.optionD"></span>-->
+                      </p>
+                      <input type="radio" checked="checked" value="5" style="display:none" id="radio4_{{ques.quesNum}}" ng-model="ans.$index">
+                      <input type="hidden" value="{{ques.ans}}" name="quesEncrypt_{{ques.quesNum}}">
+                      <!--<input type="hidden" value="{{ques.questionId}}" name="quesId_{{ques.quesNum}}">
+                      <input type="hidden" value="{{ques.question}}" name="ques_{{ques.quesNum}}">-->
+                    </form>
+                  
+                  
+              </div>
+               
+              <div class = "item item-divider">
+                  <button  class="button button-positive" style="float: left;" ng-click="goToPrev()"> Prev </button>
+                  <button class="button button-positive" style="float: right;" ng-click="goToNext()"> Next </button>
+              </div>
+            </div>
+          </div>
+
+          <div ng-repeat="n in buttons" class="centre">
+              <button ng-click="goToInd(n.number)" class="button button-small" id="indi{{n.number}}" style="float: left; margin-right: 2px; margin-bottom: 2px;" ng-class="(index  === $index? 'button-positive': '')+ ' '+(userAnswer[$index].ans === 'Unattempted'? '': 'green')">{{n.number}}</button>
+          </div>
+          <button ng-disabled="dsb" class="button button-block button-stable" ng-click="submit()">
+            Submit
+          </button>
+        </ion-content>
+      </ion-view>
+      
+    </script>
+    <!--Past Ques END-->
   </body>
 </html>

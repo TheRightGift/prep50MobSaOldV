@@ -1,5 +1,14 @@
 {
   "name": "PREP50v2",
-  "app_id": "",
-  "type": "ionic1"
+  "integrations": {
+    "gulp": {},
+    "cordova": {}
+  },
+  "type": "ionic1",
+  "watchPatterns": [
+    "scss/**/*",
+    "www/**/*",
+    "!www/lib/**/*",
+    "!www/**/*.map"
+  ]
 }

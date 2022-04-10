@@ -1,1 +1,607 @@
-/* Empty. Add your own CSS if you like */
+
+::-webkit-scrollbar {
+      width: 8px;
+} /* this targets the default scrollbar (compulsory) */
+::-webkit-scrollbar-track {
+	 /* box-shadow: inset 0 0 7px rgba(0,0,0,0.8);*/
+      background-color: rgba(204,204,204);
+	  /*border-radius: 8px;*/
+} /* the new scrollbar will have a flat appearance with the set background color */
+::-webkit-scrollbar-thumb {
+		/*box-shadow: inset 0 0 100px rgba(153,153,153,1);*/
+      background-color: rgba(214, 50, 36, 1); 
+	  /*border-radius: 8px;*/
+} /* this will style the thumb, ignoring the track */
+ 
+::-webkit-scrollbar-button {
+     /* background-color: rgba(0,151,0,1);*/
+} /* optionally, you can style the top and the bottom buttons (left and right for horizontal bars) */
+ 
+::-webkit-scrollbar-corner {
+      background-color: black;
+} /* if both the vertical and the horizontal bars appear, then perhaps the right bottom corner also needs to be styled */
+::-webkit-scrollbar-track-piece {
+	background-color: rgba(255, 255, 255, 1);	
+}
+::-webkit-scrollbar-button:horizontal {
+	width: 8px;
+   /* Select the down or left scroll button when it's being hovered by the mouse */
+}
+.bar .title {
+overflow: visible!important;
+}
+.round-icon {
+	background-color: $positive;
+	border-radius: 50%;
+	width: $bar-height;
+	height: $bar-height;
+	margin-left: auto;
+	margin-right: auto;
+}
+.round-icon > i.icon {
+	color: #000;
+	font-size: 28px;
+}
+.questions, .gameQuest {
+    display: none;
+}
+.activ8d {
+	display: block;
+}
+
+.content-stable{
+	background-color: $stable
+}
+.hint {
+	color: #aaa;
+	font-size: 14px;
+	text-align: center;
+}
+.item-active {
+	background-color: darken($stable, 15%);
+}
+
+.custom.pane, .signUp {
+    background: url('../img/bglogin.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+.pay {
+	background: url('../img/pay.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+  .inClass {
+    background: url('../img/bgd.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  .studyPlan {
+  	background: url('../img/study.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  .studyPlan h1{
+  	background-color: rgba(0, 0, 0, 0.7);
+  	color: white;
+  	margin-top: 5%;
+  	margin-bottom: 3%;
+  	padding-top: 2%;
+  	padding-bottom: 2%;
+  }
+  .netInfo {
+  	position: fixed;
+  	bottom: 50px;
+  	background-color: rgba(0, 0, 0, 0.6);
+  	color: #fff;
+  	padding: 10px;
+  }
+  .custom h1, .signUp h2 {
+  	color: #F25523;
+  	text-align: center;
+  }
+.custom h1 {
+	color: #F25523;
+	font-size: 5em;
+	text-align: center;
+	margin-top: 35%;
+	margin-bottom: 0px;
+}
+.signUp h2 { 
+	margin-top: 25px;
+	margin-bottom: 20px;
+}
+.custom p {
+	text-align: center;
+	color: #Fff;
+}
+.custom .point {
+	padding-left: 20px;
+	padding-right: 20px;
+}
+.custom .login {
+	margin-left: 8px;
+	margin-right: 8px;
+}
+.custom .list {
+	margin-top: 20%;
+}
+.loginBtn, .loginBtn:active, .loginBtn:visited {
+	background-color: #F25523;
+	color: #fff;
+}
+.wrong, .right {
+	padding: 5px;
+	font-weight: bold;
+	text-align: center;
+	float: right;
+}
+.wrong {
+	background-color: rgba(243, 184, 179, 0.6);
+	color: #C82B1E;
+	
+}
+.right {
+	background-color: rgba(95, 189, 80, 0.5);
+	color: #1A750C;
+}
+.headTopic {
+	font-size: 0.8em;
+	
+}
+.headSubj {
+	color: #333;
+}
+.list.over {
+	margin-left: 5px;
+}
+.item {
+	margin-right: 0px;
+}
+.list .item.item-accordion {
+  line-height: 38px;
+  padding-top: 0;
+  padding-bottom: 0;
+  transition: 0.09s all linear;
+}
+.list .item.item-accordion.ng-hide {
+  line-height: 0px;
+}
+.list .item.item-accordion.ng-hide-add,
+.list .item.item-accordion.ng-hide-remove {
+  display: block !important;
+}
+
+.has-subH {
+	margin-top: 90px;
+}
+.has-subT {
+	margin-top: 30px;
+}
+#tut {
+	background-color: #fff;
+	padding: 6px;
+}
+.dashRow {
+	position: absolute;
+	top: 33%;
+}
+.dashQuizLink {
+    position: absolute;
+	top: 60%;
+}
+.dashThumb div {	
+	width: 60%;
+	text-align: center;
+	color: white;
+	font-weight: bold;
+	font-size: 0.85em;
+}
+.dashQuizLink .dashThumb div {
+    width: 60%;    
+    text-align: center;
+	color: white;
+	font-weight: bold;
+	font-size: 1em;
+}
+.dashThumb:first-child img{	
+	margin-left: 39%;
+}
+.dashThumb:first-child div{	
+	margin-left: 39%;
+}
+.dashQuizLink .dashThumb:first-child div{	
+    margin-left: auto;
+    margin-right: auto;
+    padding: 10px;
+    border: thin solid white;
+}
+.dashThumb img {
+	border-radius: 10px;	
+	width: 60%;
+	height: 80%;
+}
+.bar.bar-subheader {
+	border-bottom: thin solid #C82B1E;
+}
+.bar .title {
+	color: #C82B1E;
+}
+.studyRow {	
+	position: relative;
+	top: 10%;
+}
+.studyThumb img {
+	width: 90%;
+	margin-left: 5%;
+}
+.studyThumb div {
+	text-align: center;
+	color: #fff;
+	font-weight: bold;
+}
+.padBtm {
+	margin-bottom: 20px;
+}
+
+.reviewDay {
+	background-color: #000;
+	color: #fff;
+}
+/*sort*/
+.cad {
+			background-color: white;
+			height: 370px;
+			box-shadow: 2px 2px 3px 2px rgba(153,153,153,1);
+			border-radius: 10px;
+            width: 85%;
+            margin-left: auto;
+            margin-right: auto;
+		}
+		.cadHead {
+	border-radius: 10px 10px 0px 0px;
+	background-color: rgba(255,255,255,1);
+	height: 15%;
+		}
+		.cadBody {
+	
+	height: 70%;
+		}
+		.cadFoot {
+	border-radius: 0px 0px 10px 10px;
+	background-color: rgba(255,255,255,1);
+	height: 15%;
+	text-align: center;
+	padding-top: 6%;
+		}
+		.cadFoot ul {
+			width: 100%;
+		}
+		.cadFoot li {
+	width: 23%;
+	color: rgba(255,0,0,1);
+	font-weight: bold;
+	cursor: pointer;
+	border-right-width: thin;
+	border-right-style: ridge;
+	border-right-color: rgba(153,153,153,1);
+		}
+		
+		.cadFoot li:last-child {
+			border-right-style: none;
+		}
+		.cadHead h2 {
+	margin: 0px;
+	color: rgba(255,0,0,1);
+	padding-left: 6%;
+	padding-top: 5%;
+		}
+		.progress {
+  height: 20px;
+  margin-bottom: 20px;
+  overflow: hidden;
+  background-color: #ccc;
+  border-radius: 4px;
+  -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, .1);
+          box-shadow: inset 0 1px 2px rgba(0, 0, 0, .1);
+}
+.progress-bar {
+  float: left;
+  width: 0;
+  height: 100%;
+  font-size: 12px;
+  line-height: 20px;
+  color: #fff;
+  text-align: center;
+  background-color: #337ab7;
+  -webkit-box-shadow: inset 0 -1px 0 rgba(0, 0, 0, .15);
+          box-shadow: inset 0 -1px 0 rgba(0, 0, 0, .15);
+  -webkit-transition: width .6s ease;
+       -o-transition: width .6s ease;
+          transition: width .6s ease;
+}
+		.quest {
+	width: 90%;
+	margin-left: auto;
+	margin-right: auto;
+        margin-top: auto;
+        margin-bottom: auto;
+	color: rgba(255,255,255,1);
+	height: 95%;
+	overflow: auto;
+	padding-right: 2%;
+	padding-bottom: 2%;
+	padding-left: 2%;
+        font-size: 0.9em;
+		}
+		.opt {
+			color: rgba(102,255,0,1);
+		}
+		.cadBody {
+	padding-top: 5%;
+	padding-right: 5%;
+	padding-bottom: 2%;
+	padding-left: 5%;
+		}
+#slider {
+    margin-top: 10px;
+    margin-bottom: 15px;
+}
+#buttons {
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-bottom: 40px;
+}
+#assess {
+    margin-top: 10px;
+}
+.cadBodyDefault {
+	background-color: rgba(0,0,0,1);
+}
+.red {
+		background-color: rgba(204,0,0,1);
+		color:rgba(204,204,153,1);
+	}
+
+	.purple {
+		background-color: rgba(51,0,51,1);
+		color: rgba(102,102,204,1);
+	}
+	.blue {
+	background-color: rgba(0,0,153,1);
+	color: rgba(102,204,255,1);
+	}
+	
+	.yellow{
+		background-color: rgba(204,102,0,1);
+		color:rgba(204,204,204,1);
+	}
+.green {
+	background-color: rgba(0,153,51,1);
+	color: rgba(255,255,255,1);
+	border-radius: 5px;
+}
+
+#accordion .green {
+    background-color: rgba(0,153,51,1);
+	color: rgba(255,255,255,1);
+	border-radius: 5px;
+    padding: 5px;
+}
+
+.lightGreen{
+	background-color: rgba(0,204,0,1);
+	border: 1px solid rgba(0,102,0,1);
+}
+.mua {
+	border-radius: 5px 5px 0px 0px;
+	padding: 3px;
+	border-top-width: thin;
+	border-right-width: thin;
+	border-left-width: thin;
+	border-top-style: solid;
+	border-right-style: solid;
+	border-left-style: solid;
+	border-top-color: rgba(204,204,204,1);
+	border-right-color: rgba(204,204,204,1);
+	border-left-color: rgba(204,204,204,1);
+	margin-bottom: 15px;
+	}
+#clear, #reset {
+            color: darkred;
+        }
+.cad .matrix {
+	position: relative;
+	display: inline-table;
+	margin-left: 2px; margin-right: 2px;
+	top: 3px;
+}
+
+.cad .matrix:before, .cad .matrix:after {
+    content: "";
+    position: absolute;
+    top: 0;
+    border: 1px solid #fff;
+    width: 4px;
+    height: 100%;
+}
+.cad .matrix:before {
+    left: -3px;
+    border-right: 0px;
+}
+.cad .matrix:after {
+    right: -3px;
+    border-left: 0px;
+}
+.cad .matrix td {
+	text-align: center;
+	padding-right: 3px;
+	padding-left: 3px;
+}
+#buttons .btn:hover, #buttons .btn:focus, #buttons .btn.focus {
+        color: rgba(255,255,255,1);
+	background-color: rgba(0,51,0,1);
+	border: 1px solid rgba(0,51,0,1);
+    }
+    .progress {
+        height: 15px;       
+         border-radius: 8px; 
+         width: 100%;
+        
+    }
+    .progress-bar {
+      font-size: 15px;
+      line-height: 15px;
+      padding-left: 3px;
+
+    } 
+.opt img {
+    width: 100%;
+}
+.list-inline {
+  padding-left: 0;
+  margin-left: -5px;
+  list-style: none;
+}
+.list-inline > li {
+  display: inline-block;
+  padding-right: 5px;
+  padding-left: 5px;
+}
+
+.pull-right {
+  float: right !important;
+}
+.gameBtn {
+	padding-top: 5px;
+	padding-left: 25px;
+	padding-right: 25px;  
+}
+.gameBtn button {
+	width: 32%;
+}
+.clearBottom {
+	margin-bottom: 50px;
+}
+/*sort*/
+
+.dayz {
+	text-align: center;
+
+}
+.slider-pager {
+    top: initial;
+    bottom: 60px !important;
+}
+
+.slider{
+  position: absolute !important;
+  top: 0 ;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+.studyPlan .progress, .studyPlan p {
+	margin-top: 10px;
+}
+.studyPlan .progress {
+	margin-bottom: 0px;
+}
+.centre {
+	width: 93.5%;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+/***QA***/
+.matrix {
+        position: relative;
+        display: inline-table;
+        margin-left: 0px; margin-right: 0px;
+        top: 0px;/*18px*/
+    }
+
+    .matrix:before, .matrix:after {
+        content: "";
+        position: absolute;
+        top: 0;
+        border: 1px solid #fff;
+        width: 6px;
+        height: 100%;
+    }
+    .matrix:before {
+        left: -6px;
+        border-right: 0px;
+    }
+    .matrix:after {
+        right: -3px;
+        border-left: 0px;
+    }
+    .matrix td {
+        text-align: center;
+        padding-right: 2px;
+        padding-left: 2px;
+    }
+
+.payRow {
+	background-color: #fff;
+	width: 99%;
+	margin-left: 0.5%;
+	margin-top: 5%;
+	margin-bottom: 5%;
+}
+.payRow .item {
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+.payRow .item-icon-right .icon {
+	font-size: 15px;
+}
+h1 {
+	font-size:9vw;
+}
+h2 {
+	font-size:8vw;
+}
+h3 {
+	font-size:7vw;
+}
+h4 {
+	font-size:6vw;
+}
+h5 {
+	font-size:5vw;
+}
+h6 {
+	font-size:4vw;
+}
+p{
+	font-size:4vw;
+}
+
+.ion-battery-empty {
+	color: rgba(255,0,0,0.4);
+}
+.ion-battery-full {
+	color: rgba(22, 172, 9, 0.87);
+}
+.ion-battery-half {
+	color: rgba(7, 21, 97, 0.623);
+}
+.ion-battery-low {
+	color: rgba(255, 0, 0, 0.55);
+}
+
+/**quizdata*/
+.subjQ {
+    width: 100%;
+    margin-top: 10px;
+}
+#submitBtn {
+position: absolute;
+left: 43%;
+}
